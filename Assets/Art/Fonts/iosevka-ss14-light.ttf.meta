@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: afeebb1c28da90247a3813ace9be79e5
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Iosevka SS14
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8fba132d1cbccd043a298cfd06dc5317, type: 3}
+  - {fileID: 12800000, guid: 8649267e32c6b574da0bce94202f0057, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

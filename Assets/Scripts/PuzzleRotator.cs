@@ -31,7 +31,7 @@ public class PuzzleRotator : MonoBehaviour
         }
         if (currentlyHeldPiece != null)
         {
-            currentlyHeldPiece.CorrespondingImage.localRotation = Quaternion.Euler(Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) * currentlyHeldPiece.CorrespondingImage.localRotation;
+            currentlyHeldPiece.Image.localRotation = Quaternion.Euler(Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) * currentlyHeldPiece.Image.localRotation;
             previousMouseDir = DirToMouse();
         }
 
