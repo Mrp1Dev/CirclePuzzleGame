@@ -1,7 +1,9 @@
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
+    [ClearOnReload]
     public static T Instance { get; protected set; }
     protected virtual void Awake()
     {
@@ -15,10 +17,4 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             Instance = this as T;
         }
     }
-
-    protected virtual void OnDestroy()
-    {
-        Instance = null;
-    }
-    
 }

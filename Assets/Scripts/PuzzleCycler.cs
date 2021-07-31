@@ -6,14 +6,20 @@ using UnityEngine.UI;
 public class PuzzleCycler : Singleton<PuzzleCycler>
 {
     [SerializeField] private Button nextPuzzleButton;
-    [SerializeField] private List<Sprite> puzzleImages;
+    private List<Sprite> puzzleImages;
 
     public static event Action LevelReload;
     private int currentIndex;
 
+    public int PuzzleCount => puzzleImages.Count;
+    public int CurrentlySolvedPuzzles => currentIndex + 1;
     private void Start()
     {
         nextPuzzleButton.onClick.AddListener(OnNextPuzzleClick);
+    }
+    public void Init(List<Sprite> puzzleImages)
+    {
+        this.puzzleImages = puzzleImages;
         OnNextPuzzleClick();
     }
     private void OnNextPuzzleClick()

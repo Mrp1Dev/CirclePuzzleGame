@@ -11,31 +11,34 @@ public class PuzzleRotator : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentlyHeldPiece == null)
+            var hits = Physics2D.OverlapCircleAll(MousePos, 0.001f, puzzleLayer);
+            if (hits.Length > 0)
             {
-                var hits = Physics2D.OverlapCircleAll(MousePos, 0.001f, puzzleLayer);
-                if (hits.Length > 0)
+                if (currentlyHeldPiece != null) ToggleSelectionSprite(false);
+                var smallestSize = float.MaxValue;
+                foreach (var hit in hits)
                 {
-                    var smallestSize = float.MaxValue;
-                    foreach (var hit in hits)
+                    if (hit.transform.localScale.sqrMagnitude < smallestSize)
                     {
-                        if (hit.transform.localScale.sqrMagnitude < smallestSize)
-                        {
-                            smallestSize = hit.transform.localScale.sqrMagnitude;
-                            currentlyHeldPiece = hit.transform.GetComponent<PuzzlePiece>();
-                        }
+                        smallestSize = hit.transform.localScale.sqrMagnitude;
+                        currentlyHeldPiece = hit.transform.GetComponent<PuzzlePiece>();
                     }
                 }
             }
+            ToggleSelectionSprite(true);
             previousMouseDir = DirToMouse();
         }
-        if (currentlyHeldPiece != null)
+        if (Input.GetMouseButton(0) && currentlyHeldPiece != null)
         {
             currentlyHeldPiece.Image.localRotation = Quaternion.Euler(Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) * currentlyHeldPiece.Image.localRotation;
             previousMouseDir = DirToMouse();
         }
 
-        if (Input.GetMouseButtonUp(0)) currentlyHeldPiece = null;
+    }
+
+    private void ToggleSelectionSprite(bool newActive)
+    {
+        currentlyHeldPiece.transform.GetChild(0).gameObject.SetActive(newActive);
     }
 
     private Vector2 DirToMouse()
