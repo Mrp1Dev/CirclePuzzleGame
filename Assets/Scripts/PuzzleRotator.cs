@@ -9,6 +9,7 @@ public class PuzzleRotator : MonoBehaviour
 
     private void Update()
     {
+        if (!Player.Instance.PuzzleRunning) return;
         if (Input.GetMouseButtonDown(0))
         {
             var hits = Physics2D.OverlapCircleAll(MousePos, 0.001f, puzzleLayer);
