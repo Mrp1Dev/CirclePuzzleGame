@@ -42,10 +42,7 @@ public class PuzzleRotator : MonoBehaviour
         currentlyHeldPiece.transform.GetChild(0).gameObject.SetActive(newActive);
     }
 
-    private Vector2 DirToMouse()
-    {
-        return (MousePos - transform.position.XY()).normalized;
-    }
+    private Vector2 DirToMouse() => (MousePos - transform.position.XY()).normalized;
 
     private Vector2 MousePos => Camera.main.ScreenToWorldPoint(Input.mousePosition).XY();
 }

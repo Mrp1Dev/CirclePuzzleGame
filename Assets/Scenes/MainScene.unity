@@ -836,6 +836,8 @@ GameObject:
   - component: {fileID: 553557917}
   - component: {fileID: 553557919}
   - component: {fileID: 553557918}
+  - component: {fileID: 553557921}
+  - component: {fileID: 553557920}
   m_Layer: 5
   m_Name: PuzzleFailedPanel
   m_TagString: Untagged
@@ -879,7 +881,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.0073424703, g: 0.059278045, b: 0.14150941, a: 1}
+  m_Color: {r: 0.0073424703, g: 0.059278045, b: 0.14150941, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -904,6 +906,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553557916}
   m_CullTransparentMesh: 1
+--- !u!114 &553557920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553557916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7491a5962d16874ba6ed3c23946b8d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &553557921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553557916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ad1589efac6b5a4b8456dabb52f0d60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &800140741
 GameObject:
   m_ObjectHideFlags: 0
@@ -1484,7 +1510,7 @@ MonoBehaviour:
   startScore: 1000
   scoreReductionPerSecond: 10
   scoreIncreasePerPuzzle: 10000
-  baseTimePerLevel: 5
+  baseTimePerLevel: 10
   timeMultiplierOverCompletion:
     serializedVersion: 2
     m_Curve:
@@ -1533,7 +1559,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1037429499
 Transform:
   m_ObjectHideFlags: 0
@@ -1672,7 +1698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1085828604
 Transform:
   m_ObjectHideFlags: 0
@@ -2110,8 +2136,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1337845356}
   - component: {fileID: 1337845359}
-  - component: {fileID: 1337845358}
   - component: {fileID: 1337845357}
+  - component: {fileID: 1337845358}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -2179,34 +2205,10 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 1337845358}
+  m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1753267210}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1130453143}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1337845358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2214,29 +2216,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337845355}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 22dfecc7bc032924f93f2b292a712e39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  regeneratePuzzleOnReplay: 1
 --- !u!222 &1337845359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2406,8 +2391,8 @@ MonoBehaviour:
   puzzleImages:
   - {fileID: 21300000, guid: cae1db8e03c0b6f42a9d3235b3edfa3d, type: 3}
   - {fileID: 21300000, guid: 87556f2076bd54e4aa6b508c8dd3d74b, type: 3}
-  - {fileID: 21300000, guid: ff631f2735738554eb2fb5a9160f048d, type: 3}
-  - {fileID: 21300000, guid: 8266ad43c22ac504f8e38379cb0004d2, type: 3}
+  - {fileID: 21300000, guid: 00de1055a3d23eb46bb043c56747343f, type: 3}
+  - {fileID: 21300000, guid: a04abe8fd01503345a103d87ad7f3b0e, type: 3}
 --- !u!1 &1443864641
 GameObject:
   m_ObjectHideFlags: 0
@@ -3600,6 +3585,7 @@ GameObject:
   - component: {fileID: 2078371497}
   - component: {fileID: 2078371496}
   - component: {fileID: 2078371495}
+  - component: {fileID: 2078371498}
   m_Layer: 5
   m_Name: Back to Level Selection
   m_TagString: Untagged
@@ -3671,6 +3657,30 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1085828603}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1037429498}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
       - m_Target: {fileID: 1753267210}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -3733,6 +3743,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2078371493}
   m_CullTransparentMesh: 1
+--- !u!114 &2078371498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078371493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22dfecc7bc032924f93f2b292a712e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  regeneratePuzzleOnReplay: 0
 --- !u!1 &2117325361
 GameObject:
   m_ObjectHideFlags: 0

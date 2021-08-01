@@ -13,15 +13,18 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
 
     public int PuzzleCount => puzzleImages.Count;
     public int CurrentlySolvedPuzzles => currentIndex + 1;
+
     private void Start()
     {
         nextPuzzleButton.onClick.AddListener(OnNextPuzzleClick);
     }
+
     public void Init(List<Sprite> puzzleImages)
     {
         this.puzzleImages = puzzleImages;
         OnNextPuzzleClick();
     }
+
     private void OnNextPuzzleClick()
     {
         LevelReload?.Invoke();
@@ -30,5 +33,13 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
         settings.image = puzzleImages[currentIndex];
         PuzzleManager.Instance.GeneratePuzzle(settings);
         currentIndex++;
+    }
+
+    public void ResetValues(bool clearImages = false, bool regeneratePuzzle = false)
+    {
+        currentIndex = 0;
+        if (clearImages) puzzleImages = null;
+        if (regeneratePuzzle)
+            OnNextPuzzleClick();
     }
 }

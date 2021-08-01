@@ -18,13 +18,12 @@ public class Player : Singleton<Player>
 
     private float LevelCompletionPercentage =>
         (float) PuzzleCycler.Instance.CurrentlySolvedPuzzles / PuzzleCycler.Instance.PuzzleCount;
-
-    private float lastLevelCompletion;
     public float CurrentLevelTimer { get; private set; }
 
     private void Start()
     {
         Score = startScore;
+        CurrentLevelTimer = baseTimePerLevel;
         WinConditionChecker.GameWon += OnWin;
         PuzzleCycler.LevelReload += OnLevelReload;
     }
@@ -34,10 +33,6 @@ public class Player : Singleton<Player>
     {
         if(!PuzzleRunning) return;
         CurrentLevelTimer -= Time.deltaTime;
-        if (!Mathf.Approximately(lastLevelCompletion, LevelCompletionPercentage))
-        {
-            CurrentLevelTimer = timeMultiplierOverCompletion.Evaluate(LevelCompletionPercentage) * baseTimePerLevel;
-        }
 
         if (CurrentLevelTimer <= 0)
         {
@@ -46,8 +41,9 @@ public class Player : Singleton<Player>
         }
 
         Score -= Mathf.Max(scoreReductionPerSecond * Time.deltaTime, 0);
-        lastLevelCompletion = LevelCompletionPercentage;
     }
+
+    private void OnDisable() => PuzzleRunning = false;
 
     private void OnWin()
     {
@@ -55,5 +51,24 @@ public class Player : Singleton<Player>
         PuzzleRunning = false;
     }
 
-    private void OnLevelReload() => PuzzleRunning = true;
+    private void OnLevelReload()
+    {
+        PuzzleRunning = true;
+        ReEvaluateTimer();
+    }
+
+    private void ReEvaluateTimer()
+    {
+        CurrentLevelTimer =
+            timeMultiplierOverCompletion.Evaluate(LevelCompletionPercentage) * baseTimePerLevel;
+        print(CurrentLevelTimer);
+    }
+
+    public void ResetValues()
+    {
+        Score = startScore;
+        PuzzleRunning = true;
+        ReEvaluateTimer();
+    }
+
 }
