@@ -20,16 +20,16 @@ namespace GoogleMobileAds.Editor
             EditorGUI.indentLevel++;
 
             GoogleMobileAdsSettings.Instance.GoogleMobileAdsAndroidAppId =
-                    EditorGUILayout.TextField("Android",
-                            GoogleMobileAdsSettings.Instance.GoogleMobileAdsAndroidAppId);
+                EditorGUILayout.TextField("Android",
+                    GoogleMobileAdsSettings.Instance.GoogleMobileAdsAndroidAppId);
 
             GoogleMobileAdsSettings.Instance.GoogleMobileAdsIOSAppId =
-                    EditorGUILayout.TextField("iOS",
-                            GoogleMobileAdsSettings.Instance.GoogleMobileAdsIOSAppId);
+                EditorGUILayout.TextField("iOS",
+                    GoogleMobileAdsSettings.Instance.GoogleMobileAdsIOSAppId);
 
             EditorGUILayout.HelpBox(
-                    "Google Mobile  Ads App ID will look similar to this sample ID: ca-app-pub-3940256099942544~3347511713",
-                    MessageType.Info);
+                "Google Mobile  Ads App ID will look similar to this sample ID: ca-app-pub-3940256099942544~3347511713",
+                MessageType.Info);
 
             EditorGUI.indentLevel--;
             EditorGUILayout.Separator();
@@ -40,22 +40,18 @@ namespace GoogleMobileAds.Editor
             EditorGUI.BeginChangeCheck();
 
             GoogleMobileAdsSettings.Instance.DelayAppMeasurementInit =
-                    EditorGUILayout.Toggle(new GUIContent("Delay app measurement"),
+                EditorGUILayout.Toggle(new GUIContent("Delay app measurement"),
                     GoogleMobileAdsSettings.Instance.DelayAppMeasurementInit);
 
-            if (GoogleMobileAdsSettings.Instance.DelayAppMeasurementInit) {
+            if (GoogleMobileAdsSettings.Instance.DelayAppMeasurementInit)
                 EditorGUILayout.HelpBox(
-                        "Delays app measurement until you explicitly initialize the Mobile Ads SDK or load an ad.",
-                        MessageType.Info);
-            }
+                    "Delays app measurement until you explicitly initialize the Mobile Ads SDK or load an ad.",
+                    MessageType.Info);
 
             EditorGUI.indentLevel--;
             EditorGUILayout.Separator();
 
-            if (GUI.changed)
-            {
-                OnSettingsChanged();
-            }
+            if (GUI.changed) OnSettingsChanged();
         }
 
         private void OnSettingsChanged()

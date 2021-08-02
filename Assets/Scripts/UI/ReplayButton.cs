@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 public class ReplayButton : MonoBehaviour
 {
-    [SerializeField] private bool regeneratePuzzleOnReplay = false;
+    [SerializeField] private bool regeneratePuzzleOnReplay;
+
     private void Start()
     {
         GetComponent<Button>().onClick.AddListener(OnClick);

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d043111a379c645af2efebf3110d49, type: 3}
+  m_Name: DBZImages
+  m_EditorClassIdentifier: 
+  <Images>k__BackingField:
+  - {fileID: 21300000, guid: b5c61661b1a45f84e8f47226d5b146c6, type: 3}
+  - {fileID: 21300000, guid: 22ffdde021a3c6e45a1217adab3e08bb, type: 3}
+  - {fileID: 21300000, guid: 45f1827895f11f341955881ac1b1df15, type: 3}
+  - {fileID: 21300000, guid: 54ad95659cf0f014d8fe5469a8431c40, type: 3}

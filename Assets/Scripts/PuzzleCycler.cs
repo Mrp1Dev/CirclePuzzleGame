@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class PuzzleCycler : Singleton<PuzzleCycler>
 {
     [SerializeField] private Button nextPuzzleButton;
-    private List<Sprite> puzzleImages;
-
-    public static event Action LevelReload;
+    [SerializeField] private GameObject packWinPanel;
     private int currentIndex;
+    public PuzzlePack SelectedPack { get; private set; }
 
-    public int PuzzleCount => puzzleImages.Count;
+    public int PuzzleCount => SelectedPack.Images.Count;
     public int CurrentlySolvedPuzzles => currentIndex + 1;
 
     private void Start()
@@ -19,9 +18,11 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
         nextPuzzleButton.onClick.AddListener(OnNextPuzzleClick);
     }
 
-    public void Init(List<Sprite> puzzleImages)
+    public static event Action LevelReload;
+
+    public void Init(PuzzlePack puzzleImages)
     {
-        this.puzzleImages = puzzleImages;
+        this.SelectedPack = puzzleImages;
         OnNextPuzzleClick();
     }
 
@@ -29,8 +30,15 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     {
         LevelReload?.Invoke();
         var settings = PuzzleManager.Instance.DefaultSettings;
-        if (currentIndex >= puzzleImages.Count) return;
-        settings.image = puzzleImages[currentIndex];
+        if (currentIndex >= SelectedPack.Images.Count)
+        {
+            packWinPanel.SetActive(true);
+            if (Player.Instance.Score > SelectedPack.CurrentHighScore)
+                SelectedPack.CurrentHighScore = Mathf.RoundToInt(Player.Instance.Score);
+            return;
+        }
+
+        settings.image = SelectedPack.Images[currentIndex];
         PuzzleManager.Instance.GeneratePuzzle(settings);
         currentIndex++;
     }
@@ -38,7 +46,7 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     public void ResetValues(bool clearImages = false, bool regeneratePuzzle = false)
     {
         currentIndex = 0;
-        if (clearImages) puzzleImages = null;
+        if (clearImages) SelectedPack = null;
         if (regeneratePuzzle)
             OnNextPuzzleClick();
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ScoreText : MonoBehaviour
 {
+    [SerializeField] private string formatString;
     private TMP_Text tmpText;
 
     private void Awake()
@@ -12,6 +13,6 @@ public class ScoreText : MonoBehaviour
 
     private void Update()
     {
-        tmpText.text = $"Score: {Mathf.RoundToInt(Player.Instance.Score)}";
+        tmpText.text = string.Format(formatString, Mathf.Round(Player.Instance.Score));
     }
 }

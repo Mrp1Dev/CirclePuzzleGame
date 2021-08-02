@@ -1,11 +1,13 @@
-using UnityEngine;
 using MUtility;
-using System.Linq;
+using UnityEngine;
+
 public class PuzzleRotator : MonoBehaviour
 {
     [SerializeField] private LayerMask puzzleLayer;
-    private PuzzlePiece currentlyHeldPiece = null;
+    private PuzzlePiece currentlyHeldPiece;
     private Vector2 previousMouseDir = Vector2.zero;
+
+    private Vector2 MousePos => Camera.main.ScreenToWorldPoint(Input.mousePosition).XY();
 
     private void Update()
     {
@@ -19,22 +21,23 @@ public class PuzzleRotator : MonoBehaviour
                 var smallestSize = float.MaxValue;
                 foreach (var hit in hits)
                 {
-                    if (hit.transform.localScale.sqrMagnitude < smallestSize)
-                    {
-                        smallestSize = hit.transform.localScale.sqrMagnitude;
-                        currentlyHeldPiece = hit.transform.GetComponent<PuzzlePiece>();
-                    }
+                    if (!(hit.transform.localScale.sqrMagnitude < smallestSize)) continue;
+                    smallestSize = hit.transform.localScale.sqrMagnitude;
+                    currentlyHeldPiece = hit.transform.GetComponent<PuzzlePiece>();
                 }
             }
+
             ToggleSelectionSprite(true);
             previousMouseDir = DirToMouse();
         }
+
         if (Input.GetMouseButton(0) && currentlyHeldPiece != null)
         {
-            currentlyHeldPiece.Image.localRotation = Quaternion.Euler(Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) * currentlyHeldPiece.Image.localRotation;
+            currentlyHeldPiece.Image.localRotation =
+                Quaternion.Euler(Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) *
+                currentlyHeldPiece.Image.localRotation;
             previousMouseDir = DirToMouse();
         }
-
     }
 
     private void ToggleSelectionSprite(bool newActive)
@@ -43,6 +46,4 @@ public class PuzzleRotator : MonoBehaviour
     }
 
     private Vector2 DirToMouse() => (MousePos - transform.position.XY()).normalized;
-
-    private Vector2 MousePos => Camera.main.ScreenToWorldPoint(Input.mousePosition).XY();
 }

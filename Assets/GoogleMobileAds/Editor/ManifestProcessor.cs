@@ -33,9 +33,10 @@ public class ManifestProcessor : IPreprocessBuildWithReport
 public class ManifestProcessor : IPreprocessBuild
 #endif
 {
-    private const string META_APPLICATION_ID  = "com.google.android.gms.ads.APPLICATION_ID";
+    private const string META_APPLICATION_ID = "com.google.android.gms.ads.APPLICATION_ID";
 
-    private const string MANIFEST_RELATIVE_PATH = "Plugins/Android/GoogleMobileAdsPlugin.androidlib/AndroidManifest.xml";
+    private const string MANIFEST_RELATIVE_PATH =
+ "Plugins/Android/GoogleMobileAdsPlugin.androidlib/AndroidManifest.xml";
 
     private const string META_DELAY_APP_MEASUREMENT_INIT =
             "com.google.android.gms.ads.DELAY_APP_MEASUREMENT_INIT";

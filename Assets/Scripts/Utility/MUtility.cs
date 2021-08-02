@@ -19,8 +19,13 @@ namespace MUtility
         public static Vector2 XZ(this Vector3 vec) => new Vector2(vec.x, vec.z);
         public static Vector2 XY(this Vector3 vec) => new Vector2(vec.x, vec.y);
         public static Quaternion RotationTo(this Quaternion from, Quaternion to) => Quaternion.Inverse(from) * to;
-        public static float DistTo(this Component owner, Component other) => (owner.transform.position - other.transform.position).magnitude;
-        public static float DistTo(this GameObject owner, GameObject other) => (owner.transform.position - other.transform.position).magnitude;
+
+        public static float DistTo(this Component owner, Component other) =>
+            (owner.transform.position - other.transform.position).magnitude;
+
+        public static float DistTo(this GameObject owner, GameObject other) =>
+            (owner.transform.position - other.transform.position).magnitude;
+
         public static Vector3 DirTo(this Vector3 vec, Vector3 other) => (other - vec).normalized;
         public static Vector2 DirTo(this Vector2 vec, Vector2 other) => (other - vec).normalized;
         public static bool LongerThan(this Vector3 lhs, Vector3 rhs) => lhs.sqrMagnitude > rhs.sqrMagnitude;
@@ -29,32 +34,50 @@ namespace MUtility
         public static bool ShorterThan(this Vector2 lhs, Vector2 rhs) => lhs.sqrMagnitude < rhs.sqrMagnitude;
         public static float Sqr(this float f) => Mathf.Pow(f, 2);
         public static float Sqrt(this float f) => Mathf.Sqrt(f);
-        public static float Remap(this float f, float min, float max, float newMin, float newMax) => Mathf.Lerp(newMin, newMax, Mathf.InverseLerp(min, max, f));
-        public static void Delay(this MonoBehaviour owner, Action action, float delay) => owner.StartCoroutine(DelayInternal(action, delay, false));
-        public static void DelayUnscaled(this MonoBehaviour owner, Action action, float delay) => owner.StartCoroutine(DelayInternal(action, delay, true));
-        public static void LoopWithDelay(this MonoBehaviour owner, Action action, float delay, bool startWithdelay = false) => LoopWithDelayInternal(action, delay, startWithdelay, false);
-        public static void LoopWithDelayUnscaled(this MonoBehaviour owner, Action action, float delay, bool startWithdelay = false) => LoopWithDelayInternal(action, delay, startWithdelay, true);
 
-        public static bool HasComponent<T>(this Component component) where T : MonoBehaviour => component.TryGetComponent<T>(out _);
+        public static float Remap(this float f, float min, float max, float newMin, float newMax) =>
+            Mathf.Lerp(newMin, newMax, Mathf.InverseLerp(min, max, f));
+
+        public static void Delay(this MonoBehaviour owner, Action action, float delay) =>
+            owner.StartCoroutine(DelayInternal(action, delay, false));
+
+        public static void DelayUnscaled(this MonoBehaviour owner, Action action, float delay) =>
+            owner.StartCoroutine(DelayInternal(action, delay, true));
+
+        public static void LoopWithDelay(this MonoBehaviour owner,
+            Action action,
+            float delay,
+            bool startWithdelay = false
+        ) => LoopWithDelayInternal(action, delay, startWithdelay, false);
+
+        public static void LoopWithDelayUnscaled(this MonoBehaviour owner,
+            Action action,
+            float delay,
+            bool startWithdelay = false
+        ) => LoopWithDelayInternal(action, delay, startWithdelay, true);
+
+        public static bool HasComponent<T>(this Component component) where T : MonoBehaviour =>
+            component.TryGetComponent<T>(out _);
 
         public static bool IsInLayerMask(this GameObject go, LayerMask layerMask) => ((1 << go.layer) & layerMask) != 0;
 
         public static void SetLayerIncludingChildren(this GameObject go, int layerIndex)
         {
             go.layer = layerIndex;
-            for (int i = 0; i < go.transform.childCount; i++)
-            {
+            for (var i = 0; i < go.transform.childCount; i++)
                 go.transform.GetChild(i).gameObject.SetLayerIncludingChildren(layerIndex);
-            }
         }
 
         //-------------NORMAL FUNCTIONS---------------
 
         public static bool Approx(float a, float b, float tolerance = 0.01f) => Mathf.Abs(a - b) <= tolerance;
+
         public static int MaskToIndex(LayerMask mask)
         {
-            var res = Mathf.Log((float) mask.value, 2f);
-            if (res % 1.0f > Mathf.Epsilon) Debug.LogError("MUtils.MaskToIndex expects a layermask which only has one layer ticked. Layermask provided has more than one layer.");
+            var res = Mathf.Log(mask.value, 2f);
+            if (res % 1.0f > Mathf.Epsilon)
+                Debug.LogError(
+                    "MUtils.MaskToIndex expects a layermask which only has one layer ticked. Layermask provided has more than one layer.");
             return Mathf.RoundToInt(res);
         }
 

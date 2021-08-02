@@ -13,11 +13,11 @@ public class Player : Singleton<Player>
     private AnimationCurve timeMultiplierOverCompletion;
 
     public bool PuzzleRunning { get; private set; } = true;
-    public event Action GameLost;
     public float Score { get; private set; }
 
     private float LevelCompletionPercentage =>
         (float) PuzzleCycler.Instance.CurrentlySolvedPuzzles / PuzzleCycler.Instance.PuzzleCount;
+
     public float CurrentLevelTimer { get; private set; }
 
     private void Start()
@@ -26,12 +26,13 @@ public class Player : Singleton<Player>
         CurrentLevelTimer = baseTimePerLevel;
         WinConditionChecker.GameWon += OnWin;
         PuzzleCycler.LevelReload += OnLevelReload;
+
     }
 
 
     private void Update()
     {
-        if(!PuzzleRunning) return;
+        if (!PuzzleRunning) return;
         CurrentLevelTimer -= Time.deltaTime;
 
         if (CurrentLevelTimer <= 0)
@@ -44,6 +45,7 @@ public class Player : Singleton<Player>
     }
 
     private void OnDisable() => PuzzleRunning = false;
+    public event Action GameLost;
 
     private void OnWin()
     {
@@ -70,5 +72,4 @@ public class Player : Singleton<Player>
         PuzzleRunning = true;
         ReEvaluateTimer();
     }
-
 }
