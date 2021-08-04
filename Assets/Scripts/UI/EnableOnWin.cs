@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnableOnWin : MonoBehaviour
 {
+    [SerializeField] private bool enableOnFinalWin;
+
     private void Awake()
     {
         WinConditionChecker.GameWon += OnWin;
@@ -13,5 +15,10 @@ public class EnableOnWin : MonoBehaviour
         WinConditionChecker.GameWon -= OnWin;
     }
 
-    private void OnWin() => gameObject.SetActive(true);
+    private void OnWin()
+    {
+        if (PuzzleCycler.Instance.PuzzleCount - PuzzleCycler.Instance.CurrentlySolvedPuzzles <= 0 &&
+            enableOnFinalWin == false) return;
+        gameObject.SetActive(true);
+    }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,45 +6,52 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
 {
     [SerializeField] private Button nextPuzzleButton;
     [SerializeField] private GameObject packWinPanel;
-    private int currentIndex;
     public PuzzlePack SelectedPack { get; private set; }
 
     public int PuzzleCount => SelectedPack.Images.Count;
-    public int CurrentlySolvedPuzzles => currentIndex + 1;
+    public int CurrentlySolvedPuzzles { get; private set; }
 
     private void Start()
     {
         nextPuzzleButton.onClick.AddListener(OnNextPuzzleClick);
+        WinConditionChecker.GameWon += OnWin;
+    }
+
+    private void OnDestroy()
+    {
+        WinConditionChecker.GameWon -= OnWin;
     }
 
     public static event Action LevelReload;
 
     public void Init(PuzzlePack puzzleImages)
     {
-        this.SelectedPack = puzzleImages;
+        SelectedPack = puzzleImages;
         OnNextPuzzleClick();
     }
 
     private void OnNextPuzzleClick()
     {
+        if (CurrentlySolvedPuzzles >= SelectedPack.Images.Count) return;
+
         LevelReload?.Invoke();
         var settings = PuzzleManager.Instance.DefaultSettings;
-        if (currentIndex >= SelectedPack.Images.Count)
-        {
-            packWinPanel.SetActive(true);
-            if (Player.Instance.Score > SelectedPack.CurrentHighScore)
-                SelectedPack.CurrentHighScore = Mathf.RoundToInt(Player.Instance.Score);
-            return;
-        }
-
-        settings.image = SelectedPack.Images[currentIndex];
+        settings.image = SelectedPack.Images[CurrentlySolvedPuzzles];
         PuzzleManager.Instance.GeneratePuzzle(settings);
-        currentIndex++;
+        CurrentlySolvedPuzzles++;
+    }
+
+    private void OnWin()
+    {
+        if (Instance.PuzzleCount - Instance.CurrentlySolvedPuzzles > 0) return;
+        packWinPanel.SetActive(true);
+        if (Player.Instance.Score > SelectedPack.CurrentHighScore)
+            SelectedPack.CurrentHighScore = Mathf.RoundToInt(Player.Instance.Score);
     }
 
     public void ResetValues(bool clearImages = false, bool regeneratePuzzle = false)
     {
-        currentIndex = 0;
+        CurrentlySolvedPuzzles = 0;
         if (clearImages) SelectedPack = null;
         if (regeneratePuzzle)
             OnNextPuzzleClick();

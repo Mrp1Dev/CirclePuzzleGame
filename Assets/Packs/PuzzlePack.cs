@@ -4,9 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PuzzlePack", menuName = "SOs/PuzzlePack")]
 public class PuzzlePack : ScriptableObject
 {
+
+    private int currentHighScore;
     [field: SerializeField] public List<Sprite> Images { get; private set; }
 
-    private int currentHighScore = 0;
     public int CurrentHighScore
     {
         get => currentHighScore;
@@ -19,7 +20,7 @@ public class PuzzlePack : ScriptableObject
 
     private void Awake()
     {
-        //currentHighScore = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), 0);
+        currentHighScore = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), 0);
         Debug.Log(PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), 0));
     }
 }

@@ -9,7 +9,9 @@ public class HighScoreText : MonoBehaviour
 
     private void Update()
     {
-        GetComponent<TMP_Text>().text = string.Format(formatString, currentHighScoreMode ? Mathf.RoundToInt(PuzzleCycler.Instance.SelectedPack.CurrentHighScore) : pack.CurrentHighScore);
-
+        GetComponent<TMP_Text>().text = string.Format(formatString,
+            currentHighScoreMode
+                ? Mathf.RoundToInt(PuzzleCycler.Instance.SelectedPack.CurrentHighScore)
+                : pack.CurrentHighScore);
     }
 }

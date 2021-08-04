@@ -3,17 +3,32 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    [SerializeField] private float startScore;
+    [Header("SCORE")] [SerializeField] private float startScore;
+
     [SerializeField] private float scoreReductionPerSecond;
     [SerializeField] private float scoreIncreasePerPuzzle;
+    [SerializeField] private int coinIncreasePerPuzzleSolved;
+
     [SerializeField] private float baseTimePerLevel;
 
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField]
     private AnimationCurve timeMultiplierOverCompletion;
 
+    private int coins;
+
     public bool PuzzleRunning { get; private set; } = true;
     public float Score { get; private set; }
+
+    public int Coins
+    {
+        get => coins;
+        set
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey, value);
+            coins = value;
+        }
+    }
 
     private float LevelCompletionPercentage =>
         (float) PuzzleCycler.Instance.CurrentlySolvedPuzzles / PuzzleCycler.Instance.PuzzleCount;
@@ -23,10 +38,10 @@ public class Player : Singleton<Player>
     private void Start()
     {
         Score = startScore;
+        Coins = PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0);
         CurrentLevelTimer = baseTimePerLevel;
         WinConditionChecker.GameWon += OnWin;
         PuzzleCycler.LevelReload += OnLevelReload;
-
     }
 
 
@@ -50,6 +65,7 @@ public class Player : Singleton<Player>
     private void OnWin()
     {
         Score += scoreIncreasePerPuzzle;
+        Coins += coinIncreasePerPuzzleSolved;
         PuzzleRunning = false;
     }
 
