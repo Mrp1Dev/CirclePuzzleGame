@@ -1,4 +1,5 @@
 using System;
+using MUtility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +7,7 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
 {
     [SerializeField] private Button nextPuzzleButton;
     [SerializeField] private GameObject packWinPanel;
+    [SerializeField] private float winPanelDelay = 2.5f;
     public PuzzlePack SelectedPack { get; private set; }
 
     public int PuzzleCount => SelectedPack.Images.Count;
@@ -44,9 +46,9 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     private void OnWin()
     {
         if (Instance.PuzzleCount - Instance.CurrentlySolvedPuzzles > 0) return;
-        packWinPanel.SetActive(true);
         if (Player.Instance.Score > SelectedPack.CurrentHighScore)
             SelectedPack.CurrentHighScore = Mathf.RoundToInt(Player.Instance.Score);
+        this.DelayUnscaled(() => packWinPanel.SetActive(true), winPanelDelay);
     }
 
     public void ResetValues(bool clearImages = false, bool regeneratePuzzle = false)

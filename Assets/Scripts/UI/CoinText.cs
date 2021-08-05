@@ -9,6 +9,6 @@ public class CoinText : MonoBehaviour
 
     private void Update()
     {
-        GetComponent<TMP_Text>().text = string.Format(formatString, Player.Instance != null ? Player.Instance.Coins : 0);
+        GetComponent<TMP_Text>().text = string.Format(formatString, Player.Instance != null ? Player.Instance.Coins : PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0));
     }
 }

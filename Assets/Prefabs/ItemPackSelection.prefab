@@ -93,7 +93,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 22.6
+  m_fontSize: 24.95
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -290,11 +290,13 @@ MonoBehaviour:
   freePack: 1
   notAffordableColor: {r: 0.6509804, g: 0.20784314, b: 0.21176471, a: 1}
   affordableColor: {r: 0.20392157, g: 0.6509804, b: 0.3019608, a: 1}
-  boughtColor: {r: 0, g: 0.09019608, b: 0.32941177, a: 1}
+  boughtColor: {r: 0.019607844, g: 0.0627451, b: 0.13333334, a: 1}
+  scoreUnlock: 0
   cost: 0
-  highscoreText: {fileID: 613653574261709114}
-  costText: {fileID: 6358356965368440727}
-  costFormatString: 'Cost: {0}'
+  scoreRequirement: 0
+  highScoreText: {fileID: 613653574261709114}
+  costOrScoreText: {fileID: 6358356965368440727}
+  costOrScoreFormatString: 'Cost: {0}'
   gameObjectActiveModeToSetOnPlay:
   - gameObject: {fileID: 0}
     active: 0
