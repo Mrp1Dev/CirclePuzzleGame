@@ -3,10 +3,24 @@ using System.Collections;
 using GoogleMobileAds.Api;
 using UnityEngine;
 
-public class AdManager : MonoBehaviour
+public class AdManager : Singleton<AdManager>
 {
+    private enum AdType
+    {
+        None,
+        Revival,
+        Coins
+    }
+
+    [SerializeField] private GameObject adLoadingPanel;
+    [SerializeField] private GameObject puzzleLostPanel;
+    [SerializeField] private float extraTimeOnRevival;
+    [field: SerializeField] public int CoinIncreaseOnWatch { get; private set; }
+
     private const string adUnitID = "ca-app-pub-3940256099942544/5224354917";
+    private bool adFailedToLoad;
     private RewardedAd rewardedAd;
+    private AdType currentRunningAd;
 
     private void Start()
     {
@@ -24,53 +38,102 @@ public class AdManager : MonoBehaviour
         rewardedAd.OnUserEarnedReward += HandleUserEarnedReward;
         // Called when the ad is closed.
         rewardedAd.OnAdClosed += HandleRewardedAdClosed;
-
-        var request = new AdRequest.Builder().Build();
-        rewardedAd.LoadAd(request);
-        StartCoroutine(TryShowRewardedAd());
+        RequestAd();
     }
 
-    private IEnumerator TryShowRewardedAd()
+    private IEnumerator TryShowRewardedAd(AdType adType)
     {
-        while (!rewardedAd.IsLoaded()) yield return null;
+        adLoadingPanel.SetActive(true);
+        while (!rewardedAd.IsLoaded())
+        {
+            if (adFailedToLoad)
+            {
+                adLoadingPanel.SetActive(false);
+                yield break;
+            }
+
+            yield return null;
+        }
+
         rewardedAd.Show();
+        adLoadingPanel.SetActive(false);
+        currentRunningAd = adType;
     }
 
-    public void HandleRewardedAdLoaded(object sender, EventArgs args)
+    private void HandleRewardedAdLoaded(object sender, EventArgs args)
     {
         print("HandleRewardedAdLoaded event received");
     }
 
-    public void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    private void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
-        print(
-            "HandleRewardedAdFailedToLoad event received with message: "
-            + args.LoadAdError);
+        print("HandleRewardedAdFailedToLoad event received with message: " + args.LoadAdError);
+        adFailedToLoad = true;
     }
 
-    public void HandleRewardedAdOpening(object sender, EventArgs args)
+    private void HandleRewardedAdOpening(object sender, EventArgs args)
     {
         print("HandleRewardedAdOpening event received");
     }
 
-    public void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
+    private void HandleRewardedAdFailedToShow(object sender, AdErrorEventArgs args)
     {
         print(
             "HandleRewardedAdFailedToShow event received with message: "
             + args.AdError);
+        currentRunningAd = AdType.None;
+        adLoadingPanel.SetActive(false);
     }
 
-    public void HandleRewardedAdClosed(object sender, EventArgs args)
+    private void HandleRewardedAdClosed(object sender, EventArgs args)
     {
         print("HandleRewardedAdClosed event received");
+        adLoadingPanel.SetActive(false);
+        RequestAd();
     }
 
-    public void HandleUserEarnedReward(object sender, Reward args)
+    private void RequestAd()
     {
-        var type = args.Type;
-        var amount = args.Amount;
-        print(
-            "HandleRewardedAdRewarded event received for "
-            + amount + " " + type);
+        var request = new AdRequest.Builder().Build();
+        rewardedAd.LoadAd(request);
+    }
+
+    private void HandleUserEarnedReward(object sender, Reward args)
+    {
+        switch (currentRunningAd)
+        {
+            case AdType.Revival:
+                puzzleLostPanel.SetActive(false);
+                Player.Instance.ResetValues(extraTimeOnRevival);
+                break;
+            case AdType.Coins when Player.Instance == null:
+                PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey,
+                    PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) + CoinIncreaseOnWatch);
+                break;
+            case AdType.Coins:
+                Player.Instance.Coins += CoinIncreaseOnWatch;
+                break;
+            default:
+                return;
+        }
+    }
+
+    public void OnReviveWanted()
+    {
+        TryReloadAd();
+        StartCoroutine(TryShowRewardedAd(AdType.Revival));
+    }
+
+    private void TryReloadAd()
+    {
+        if (!adFailedToLoad) return;
+        adFailedToLoad = false;
+        RequestAd();
+    }
+
+    public void OnCoinsWanted()
+    {
+        TryReloadAd();
+        StartCoroutine(TryShowRewardedAd(AdType.Coins));
     }
 }

@@ -32,6 +32,7 @@ public class ImagePackSelection : MonoBehaviour
     [SerializeField] private GameObject costOrScoreText;
     [SerializeField] private string costOrScoreFormatString = "Cost: {0}";
     [SerializeField] private List<GameObjectActive> gameObjectActiveModeToSetOnPlay;
+    [SerializeField] private GameObject notEnoughCoinsPanel;
     private bool buyState;
 
     public bool BuyState
@@ -43,6 +44,8 @@ public class ImagePackSelection : MonoBehaviour
             buyState = value;
         }
     }
+
+    private static int PlayerPrefsCoins => PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0);
 
     private void Start()
     {
@@ -61,7 +64,8 @@ public class ImagePackSelection : MonoBehaviour
         {
             var condition = scoreUnlock
                 ? TotalBestScore.Instance.TotalScore > scoreRequirement
-                : (Player.Instance == null ? 0 : Player.Instance.Coins) >= cost;
+                : (Player.Instance == null ? PlayerPrefsCoins : Player.Instance.Coins) >=
+                  cost;
             GetComponent<Image>().color = condition ? affordableColor : notAffordableColor;
         }
 
@@ -88,16 +92,23 @@ public class ImagePackSelection : MonoBehaviour
             }
             else
             {
-                if (Player.Instance != null && Player.Instance.Coins >= cost)
+                if (Player.Instance != null)
                 {
-                    Player.Instance.Coins -= cost;
+                    if (Player.Instance.Coins >= cost)
+                    {
+                        Player.Instance.Coins -= cost;
+                        BuyState = true;
+                    }
+                    else
+                        notEnoughCoinsPanel.SetActive(true);
+                }
+                else if (PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) >= cost)
+                {
+                    PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey, PlayerPrefsCoins - cost);
                     BuyState = true;
                 }
                 else
-                {
-                    Mathf.Max(1, 2);
-                    //TODO: no cash popup
-                }
+                    notEnoughCoinsPanel.SetActive(true);
             }
         }
     }

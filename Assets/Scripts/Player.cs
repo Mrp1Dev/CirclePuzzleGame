@@ -82,10 +82,11 @@ public class Player : Singleton<Player>
         print(CurrentLevelTimer);
     }
 
-    public void ResetValues()
+    public void ResetValues(float extraTime = 0.0f)
     {
         Score = startScore;
         PuzzleRunning = true;
         ReEvaluateTimer();
+        CurrentLevelTimer += extraTime;
     }
 }

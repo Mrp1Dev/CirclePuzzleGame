@@ -47,14 +47,14 @@ namespace MUtility
         public static void LoopWithDelay(this MonoBehaviour owner,
             Action action,
             float delay,
-            bool startWithdelay = false
-        ) => LoopWithDelayInternal(action, delay, startWithdelay, false);
+            bool startWithDelay = false
+        ) => LoopWithDelayInternal(action, delay, startWithDelay, false);
 
         public static void LoopWithDelayUnscaled(this MonoBehaviour owner,
             Action action,
             float delay,
-            bool startWithdelay = false
-        ) => LoopWithDelayInternal(action, delay, startWithdelay, true);
+            bool startWithDelay = false
+        ) => LoopWithDelayInternal(action, delay, startWithDelay, true);
 
         public static bool HasComponent<T>(this Component component) where T : MonoBehaviour =>
             component.TryGetComponent<T>(out _);
@@ -66,6 +66,15 @@ namespace MUtility
             go.layer = layerIndex;
             for (var i = 0; i < go.transform.childCount; i++)
                 go.transform.GetChild(i).gameObject.SetLayerIncludingChildren(layerIndex);
+        }
+
+        public static void SetActiveIncludingChildren(this GameObject go, bool active)
+        {
+            go.SetActive(active);
+            for (var i = 0; i < go.transform.childCount; i++)
+            {
+                go.transform.GetChild(i).gameObject.SetActive(active);
+            }
         }
 
         //-------------NORMAL FUNCTIONS---------------
