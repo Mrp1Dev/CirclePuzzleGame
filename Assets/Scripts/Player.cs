@@ -17,7 +17,7 @@ public class Player : Singleton<Player>
 
     private int coins;
 
-    public bool PuzzleRunning { get; private set; } = true;
+    public bool PuzzleRunning { get; set; } = true;
     public float Score { get; private set; }
 
     public int Coins
@@ -89,4 +89,5 @@ public class Player : Singleton<Player>
         ReEvaluateTimer();
         CurrentLevelTimer += extraTime;
     }
+
 }

@@ -42,7 +42,8 @@ public class PuzzleRotator : MonoBehaviour
 
     private void ToggleSelectionSprite(bool newActive)
     {
-        currentlyHeldPiece.transform.GetChild(0).gameObject.SetActive(newActive);
+        if(currentlyHeldPiece.Border == null) return;
+        currentlyHeldPiece.Border.gameObject.SetActive(newActive);
     }
 
     private Vector2 DirToMouse() => (MousePos - transform.position.XY()).normalized;

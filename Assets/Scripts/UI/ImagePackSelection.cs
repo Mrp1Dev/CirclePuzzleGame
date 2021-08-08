@@ -16,6 +16,7 @@ public class ImagePackSelection : MonoBehaviour
 {
     [SerializeField] private PuzzlePack pack;
     [SerializeField] private bool freePack = true;
+    [SerializeField] private Image bgImage;
     [SerializeField] private Color notAffordableColor;
     [SerializeField] private Color affordableColor;
     [SerializeField] private Color boughtColor;
@@ -59,14 +60,14 @@ public class ImagePackSelection : MonoBehaviour
     private void Update()
     {
         if (BuyState)
-            GetComponent<Image>().color = boughtColor;
+            bgImage.color = boughtColor;
         else
         {
             var condition = scoreUnlock
                 ? TotalBestScore.Instance.TotalScore > scoreRequirement
                 : (Player.Instance == null ? PlayerPrefsCoins : Player.Instance.Coins) >=
                   cost;
-            GetComponent<Image>().color = condition ? affordableColor : notAffordableColor;
+            bgImage.color = condition ? affordableColor : notAffordableColor;
         }
 
 
@@ -85,31 +86,34 @@ public class ImagePackSelection : MonoBehaviour
             PuzzleCycler.Instance.Init(pack);
         }
         else
+            TryUnlock();
+    }
+
+    private void TryUnlock()
+    {
+        if (scoreUnlock)
         {
-            if (scoreUnlock)
+            if (TotalBestScore.Instance.TotalScore > scoreRequirement) BuyState = true;
+            return;
+        }
+
+        if (Player.Instance != null)
+        {
+            if (Player.Instance.Coins >= cost)
             {
-                if (TotalBestScore.Instance.TotalScore > scoreRequirement) BuyState = true;
-            }
-            else
-            {
-                if (Player.Instance != null)
-                {
-                    if (Player.Instance.Coins >= cost)
-                    {
-                        Player.Instance.Coins -= cost;
-                        BuyState = true;
-                    }
-                    else
-                        notEnoughCoinsPanel.SetActive(true);
-                }
-                else if (PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) >= cost)
-                {
-                    PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey, PlayerPrefsCoins - cost);
-                    BuyState = true;
-                }
-                else
-                    notEnoughCoinsPanel.SetActive(true);
+                Player.Instance.Coins -= cost;
+                BuyState = true;
+                return;
             }
         }
+
+        if (PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) >= cost)
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey, PlayerPrefsCoins - cost);
+            BuyState = true;
+            return;
+        }
+
+        notEnoughCoinsPanel.SetActive(true);
     }
 }
