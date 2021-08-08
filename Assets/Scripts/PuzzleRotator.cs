@@ -42,7 +42,7 @@ public class PuzzleRotator : MonoBehaviour
 
     private void ToggleSelectionSprite(bool newActive)
     {
-        if(currentlyHeldPiece.Border == null) return;
+        if(currentlyHeldPiece == null) return;
         currentlyHeldPiece.Border.gameObject.SetActive(newActive);
     }
 

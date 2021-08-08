@@ -1902,6 +1902,7 @@ GameObject:
   - component: {fileID: 553557918}
   - component: {fileID: 553557921}
   - component: {fileID: 553557920}
+  - component: {fileID: 553557922}
   m_Layer: 5
   m_Name: PuzzleFailedPanel
   m_TagString: Untagged
@@ -1995,6 +1996,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceChildren: 1
+--- !u!114 &553557922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 553557916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba939e6fda81e74182506ed4b341fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  ease: 30
 --- !u!1 &563049525
 GameObject:
   m_ObjectHideFlags: 0
@@ -2266,6 +2281,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsAfterEnabled: 6
+  easingDuration: 0
+  ease: 32
 --- !u!1 &800140741
 GameObject:
   m_ObjectHideFlags: 0
@@ -2624,6 +2641,7 @@ GameObject:
   - component: {fileID: 819573503}
   - component: {fileID: 819573502}
   - component: {fileID: 819573501}
+  - component: {fileID: 819573504}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -2716,6 +2734,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 819573499}
   m_CullTransparentMesh: 1
+--- !u!114 &819573504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 819573499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interstitialChance: 15
+  puzzleRunningAfterInterstitial: 1
 --- !u!1 &854096125
 GameObject:
   m_ObjectHideFlags: 0
@@ -3249,7 +3281,7 @@ MonoBehaviour:
   scoreReductionPerSecond: 350
   scoreIncreasePerPuzzle: 10000
   coinIncreasePerPuzzleSolved: 1
-  baseTimePerLevel: 3
+  baseTimePerLevel: 8
   timeMultiplierOverCompletion:
     serializedVersion: 2
     m_Curve:
@@ -3506,6 +3538,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsAfterEnabled: 6
+  easingDuration: 0.35
+  ease: 25
 --- !u!1 &1085828603
 GameObject:
   m_ObjectHideFlags: 0
@@ -4015,6 +4049,7 @@ GameObject:
   - component: {fileID: 1291863759}
   - component: {fileID: 1291863761}
   - component: {fileID: 1291863762}
+  - component: {fileID: 1291863763}
   m_Layer: 5
   m_Name: Puzzle Solved!
   m_TagString: Untagged
@@ -4163,6 +4198,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7491a5962d16874ba6ed3c23946b8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1291863763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291863757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba939e6fda81e74182506ed4b341fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  ease: 30
 --- !u!1 &1299878700
 GameObject:
   m_ObjectHideFlags: 0
@@ -4456,6 +4505,7 @@ GameObject:
   - component: {fileID: 1337845359}
   - component: {fileID: 1337845357}
   - component: {fileID: 1337845358}
+  - component: {fileID: 1337845360}
   m_Layer: 5
   m_Name: Restart
   m_TagString: Untagged
@@ -4526,19 +4576,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 594615883}
-        m_TargetAssemblyTypeName: AdManager, Assembly-CSharp
-        m_MethodName: OnInterstitialWanted
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1337845358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4560,6 +4598,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1337845355}
   m_CullTransparentMesh: 1
+--- !u!114 &1337845360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1337845355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interstitialChance: 15
+  puzzleRunningAfterInterstitial: 1
 --- !u!1001 &1341317664
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4809,7 +4861,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -4995,6 +5047,7 @@ GameObject:
   - component: {fileID: 1418531830}
   - component: {fileID: 1418531829}
   - component: {fileID: 1418531827}
+  - component: {fileID: 1418531828}
   m_Layer: 5
   m_Name: PuzzlePackFinishedPanel
   m_TagString: Untagged
@@ -5040,6 +5093,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7491a5962d16874ba6ed3c23946b8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1418531828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1418531825}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba939e6fda81e74182506ed4b341fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  ease: 30
 --- !u!114 &1418531829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5812,6 +5879,7 @@ GameObject:
   - component: {fileID: 1739695202}
   - component: {fileID: 1739695201}
   - component: {fileID: 1739695200}
+  - component: {fileID: 1739695204}
   m_Layer: 5
   m_Name: Back to Level Selection
   m_TagString: Untagged
@@ -5982,6 +6050,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1739695198}
   m_CullTransparentMesh: 1
+--- !u!114 &1739695204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739695198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interstitialChance: 20
+  puzzleRunningAfterInterstitial: 0
 --- !u!1 &1753267210
 GameObject:
   m_ObjectHideFlags: 0
@@ -6781,6 +6863,7 @@ GameObject:
   - component: {fileID: 2049829177}
   - component: {fileID: 2049829176}
   - component: {fileID: 2049829174}
+  - component: {fileID: 2049829175}
   m_Layer: 5
   m_Name: Next Puzzle
   m_TagString: Untagged
@@ -6820,6 +6903,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7491a5962d16874ba6ed3c23946b8d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2049829175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2049829172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ba939e6fda81e74182506ed4b341fe9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDuration: 0.5
+  ease: 30
 --- !u!114 &2049829176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6928,6 +7025,7 @@ GameObject:
   - component: {fileID: 2078371496}
   - component: {fileID: 2078371495}
   - component: {fileID: 2078371498}
+  - component: {fileID: 2078371499}
   m_Layer: 5
   m_Name: Back to Level Selection
   m_TagString: Untagged
@@ -7098,6 +7196,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   regeneratePuzzleOnReplay: 0
+--- !u!114 &2078371499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078371493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interstitialChance: 15
+  puzzleRunningAfterInterstitial: 0
 --- !u!1 &2117325361
 GameObject:
   m_ObjectHideFlags: 0
