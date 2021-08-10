@@ -151,7 +151,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -335,15 +335,15 @@ MonoBehaviour:
   pack: {fileID: 11400000, guid: afb4fb4cd26af0b4bb22bf99613fc250, type: 2}
   freePack: 1
   bgImage: {fileID: 3531075649869355047}
-  notAffordableColor: {r: 0.6156863, g: 0, b: 0.007843138, a: 0.8}
-  affordableColor: {r: 0, g: 0.5764706, b: 0.12941177, a: 0.8}
-  boughtColor: {r: 0, g: 0, b: 0, a: 0.8}
+  notAffordableColor: {r: 0.33333334, g: 0, b: 0.007843138, a: 0.8509804}
+  affordableColor: {r: 0, g: 0.28627452, b: 0.06666667, a: 0.8509804}
+  boughtColor: {r: 0, g: 0.07450981, b: 0.14901961, a: 0.8509804}
   scoreUnlock: 0
   cost: 0
   scoreRequirement: 0
   highScoreText: {fileID: 613653574261709114}
   costOrScoreText: {fileID: 6358356965368440727}
-  costOrScoreFormatString: 'Cost: {0}'
+  costOrScoreFormatString: '{0} Coins'
   gameObjectActiveModeToSetOnPlay:
   - gameObject: {fileID: 0}
     active: 0
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -556,7 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.07450981, b: 0.14901961, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Cost: 100 Coins'
+  m_text: 100 Coins
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 549e0f1c587416b4a9f7c70ffeb4ea57, type: 2}
   m_sharedMaterial: {fileID: 5221060494884155431, guid: 549e0f1c587416b4a9f7c70ffeb4ea57, type: 2}
@@ -648,7 +648,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -765,7 +765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8}
+  m_Color: {r: 0, g: 0.0754717, b: 0.1509434, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

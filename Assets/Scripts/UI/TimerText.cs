@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TimerText : MonoBehaviour
 {
+    [SerializeField] private string formatString;
     private TMP_Text tmpText;
 
     private void Awake()
@@ -12,6 +13,7 @@ public class TimerText : MonoBehaviour
 
     private void Update()
     {
-        tmpText.text = $"Time Left: {Mathf.RoundToInt(Player.Instance.CurrentLevelTimer)}";
+        var timer = Mathf.RoundToInt(Player.Instance.CurrentLevelTimer);
+        tmpText.text = string.Format(formatString, timer);
     }
 }
