@@ -33,7 +33,8 @@ namespace MUtility
             if (field.GetCustomAttribute(typeof(TrySelfInit)) == null) return;
             if (!field.FieldType.IsSubclassOf(typeof(Component))) return;
             if (!field.GetValue(component).Equals(null)) return;
-            if (component.TryGetComponent(field.FieldType, out var wanted)) field.SetValue(component, wanted);
+            if (component.TryGetComponent(field.FieldType, out var wanted))
+                field.SetValue(component, wanted);
         }
 
         private static void TryPerformParentInit(MonoBehaviour component, FieldInfo field)

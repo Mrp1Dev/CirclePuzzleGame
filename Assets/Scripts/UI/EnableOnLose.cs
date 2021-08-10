@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnableOnLose : MonoBehaviour
 {
     [SerializeField] private bool forceChildren;
+
     private void Awake()
     {
         Player.Instance.GameLost += OnLose;
@@ -17,7 +18,7 @@ public class EnableOnLose : MonoBehaviour
 
     private void OnLose()
     {
-        if(forceChildren) gameObject.SetActiveIncludingChildren(true);
+        if (forceChildren) gameObject.SetActiveIncludingChildren(true);
         else gameObject.SetActive(true);
     }
 }

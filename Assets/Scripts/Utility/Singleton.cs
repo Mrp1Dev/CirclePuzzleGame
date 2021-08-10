@@ -9,12 +9,11 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.LogWarning($"A singleton of type: {typeof(T).Name} already exists. Destroying this Instance.");
+            Debug.LogWarning(
+                $"A singleton of type: {typeof(T).Name} already exists. Destroying this Instance.");
             Destroy(gameObject);
         }
         else
-        {
             Instance = this as T;
-        }
     }
 }

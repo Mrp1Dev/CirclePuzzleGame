@@ -20,12 +20,14 @@ public class PuzzleManager : Singleton<PuzzleManager>
     public void GeneratePuzzle(PuzzleGenerationSettings settings, bool clearCurrent = true)
     {
         if (clearCurrent)
+        {
             for (var i = CurrentlyActivePieces.Count - 1; i >= 0; i--)
             {
                 PoolingManager.Instance.ReturnToPool(CurrentlyActivePieces[i].Image.gameObject);
                 PoolingManager.Instance.ReturnToPool(CurrentlyActivePieces[i].gameObject);
                 CurrentlyActivePieces.RemoveAt(i);
             }
+        }
 
         for (var i = settings.sortingOrderOffset; i < settings.sliceCount + settings.sortingOrderOffset; i++)
         {
@@ -48,11 +50,13 @@ public class PuzzleManager : Singleton<PuzzleManager>
 
     private Transform SpawnSprite(int i, PuzzleGenerationSettings settings)
     {
-        var instantiated = PoolingManager.Instance.GetFromPool(settings.imagePrefab, settings.imageHolderParent)
+        var instantiated = PoolingManager.Instance
+            .GetFromPool(settings.imagePrefab, settings.imageHolderParent)
             .GetComponent<SpriteRenderer>();
         instantiated.sprite = settings.image;
         instantiated.sortingOrder = i;
-        instantiated.transform.rotation = Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f));
+        instantiated.transform.rotation =
+            Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f));
         instantiated.transform.localScale = new Vector2(settings.diameter, settings.diameter);
         return instantiated.transform;
     }

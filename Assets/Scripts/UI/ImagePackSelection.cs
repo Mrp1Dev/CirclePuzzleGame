@@ -51,7 +51,8 @@ public class ImagePackSelection : MonoBehaviour
     private void Start()
     {
         GetComponent<Button>().onClick.AddListener(OnClick);
-        BuyState = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackBuyStateKey(pack), freePack ? 1 : 0) == 1;
+        BuyState = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackBuyStateKey(pack),
+            freePack ? 1 : 0) == 1;
         costOrScoreText.GetComponent<TMP_Text>().text = scoreUnlock
             ? string.Format(costOrScoreFormatString, scoreRequirement)
             : string.Format(costOrScoreFormatString, cost);

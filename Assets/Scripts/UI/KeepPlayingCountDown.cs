@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class KeepPlayingCountDown : MonoBehaviour
@@ -7,6 +5,7 @@ public class KeepPlayingCountDown : MonoBehaviour
     [SerializeField] private float timeToEnlarge;
     private float initialOffsetMax = 120f;
     private float DeltaPerSecond => initialOffsetMax / timeToEnlarge;
+
     private void Start()
     {
         initialOffsetMax = GetComponent<RectTransform>().offsetMax.y;

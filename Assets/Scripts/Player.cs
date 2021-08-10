@@ -89,5 +89,4 @@ public class Player : Singleton<Player>
         ReEvaluateTimer();
         CurrentLevelTimer += extraTime;
     }
-
 }

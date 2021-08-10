@@ -19,9 +19,7 @@ public class PoolingManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null)
-        {
             Instance = this;
-        }
         else
         {
             Debug.LogWarning("An Instanace of this singleton already exists, destroying current one.");
@@ -54,9 +52,7 @@ public class PoolingManager : MonoBehaviour
             pool = CreatePool(prefab);
         GameObject result;
         if (pool.Count == 0)
-        {
             result = Instantiate(prefab, position, rotation, parent);
-        }
         else
         {
             result = pool.Dequeue();
@@ -76,9 +72,7 @@ public class PoolingManager : MonoBehaviour
             pool = CreatePool(prefab);
         GameObject result;
         if (pool.Count == 0)
-        {
             result = Instantiate(prefab, parent, instantiateInWorldSpace);
-        }
         else
         {
             result = pool.Dequeue();
@@ -102,7 +96,8 @@ public class PoolingManager : MonoBehaviour
     }
 
     public GameObject GetFromPool(Prefab prefab) =>
-        GetFromPool(prefab, prefab.transform.position, prefab.transform.rotation, null);
+        GetFromPool(prefab, prefab.transform.position, prefab.transform.rotation,
+            null);
 
     public GameObject GetFromPool(Prefab prefab, Vector3 position, Quaternion rotation) =>
         GetFromPool(prefab, position, rotation, null);

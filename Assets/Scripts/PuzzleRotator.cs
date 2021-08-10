@@ -34,7 +34,8 @@ public class PuzzleRotator : MonoBehaviour
         if (Input.GetMouseButton(0) && currentlyHeldPiece != null)
         {
             currentlyHeldPiece.Image.localRotation =
-                Quaternion.Euler(Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) *
+                Quaternion.Euler(
+                    Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) *
                 currentlyHeldPiece.Image.localRotation;
             previousMouseDir = DirToMouse();
         }
@@ -42,7 +43,7 @@ public class PuzzleRotator : MonoBehaviour
 
     private void ToggleSelectionSprite(bool newActive)
     {
-        if(currentlyHeldPiece == null) return;
+        if (currentlyHeldPiece == null) return;
         currentlyHeldPiece.Border.gameObject.SetActive(newActive);
     }
 

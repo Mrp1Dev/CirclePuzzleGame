@@ -71,10 +71,7 @@ namespace MUtility
         public static void SetActiveIncludingChildren(this GameObject go, bool active)
         {
             go.SetActive(active);
-            for (var i = 0; i < go.transform.childCount; i++)
-            {
-                go.transform.GetChild(i).gameObject.SetActive(active);
-            }
+            for (var i = 0; i < go.transform.childCount; i++) go.transform.GetChild(i).gameObject.SetActive(active);
         }
 
         //-------------NORMAL FUNCTIONS---------------
@@ -85,8 +82,11 @@ namespace MUtility
         {
             var res = Mathf.Log(mask.value, 2f);
             if (res % 1.0f > Mathf.Epsilon)
+            {
                 Debug.LogError(
                     "MUtils.MaskToIndex expects a layermask which only has one layer ticked. Layermask provided has more than one layer.");
+            }
+
             return Mathf.RoundToInt(res);
         }
 

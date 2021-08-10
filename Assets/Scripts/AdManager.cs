@@ -14,11 +14,11 @@ public class AdManager : Singleton<AdManager>
     private bool adFailedToLoad;
     private AdType currentRunningAd;
     private InterstitialAd interstitial;
+    private bool puzzleRunningAfterInterstitial;
 
     private RewardedAd rewardedAd;
     private bool rewardedAdFailedToLoad;
     [field: SerializeField] public int CoinIncreaseOnWatch { get; private set; }
-    private bool puzzleRunningAfterInterstitial;
 
     private void Start()
     {
