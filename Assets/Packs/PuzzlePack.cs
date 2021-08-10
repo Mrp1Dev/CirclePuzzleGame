@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NaughtyAttributes;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PuzzlePack", menuName = "SOs/PuzzlePack")]
@@ -18,6 +19,7 @@ public class PuzzlePack : ScriptableObject
         }
     }
 
+    [Button("Reload")]
     private void Awake()
     {
         currentHighScore = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), 0);

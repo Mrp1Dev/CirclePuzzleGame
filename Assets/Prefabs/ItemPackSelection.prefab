@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 613653574261709115}
   - component: {fileID: 613653574261709118}
   - component: {fileID: 613653574261709117}
-  - component: {fileID: 613653574261709116}
+  - component: {fileID: 6246719701961897736}
   m_Layer: 5
   m_Name: HighScore
   m_TagString: Untagged
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &613653574261709116
+--- !u!114 &6246719701961897736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,8 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b842143f28709774c996ec76d9285db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  formatString: 'Best Score: <color=purple>{0}</color>'
-  currentHighScoreMode: 1
+  formatString: 'Best Score: <color=#54D75D>{0}</color>'
+  currentHighScoreMode: 0
   pack: {fileID: 0}
 --- !u!1 &613653574681615937
 GameObject:
@@ -319,7 +319,31 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8695232543564840469}
+        m_TargetAssemblyTypeName: TransitionOnClick, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 613653574681615942}
+        m_TargetAssemblyTypeName: ImagePackSelection, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &613653574681615942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -364,6 +388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   from: {fileID: 0}
   to: {fileID: 0}
+  autoRegister: 0
 --- !u!1 &613653575421766194
 GameObject:
   m_ObjectHideFlags: 0
@@ -438,7 +463,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -647,7 +672,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -665,7 +690,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 17.7
+  m_fontSize: 23.3
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
