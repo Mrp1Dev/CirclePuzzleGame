@@ -30,10 +30,17 @@ public class ImagePackSelection : MonoBehaviour
     private int scoreRequirement;
 
     [SerializeField] private GameObject highScoreText;
-    [SerializeField] private GameObject costOrScoreText;
+
+    [SerializeField] private GameObject coinTextParent;
+    [SerializeField] private GameObject coinText;
+    [SerializeField] private GameObject scoreNeededTextParent;
+    [SerializeField] private GameObject scoreNeededText;
+
     [SerializeField] private string costOrScoreFormatString = "Cost: {0}";
     [SerializeField] private List<GameObjectActive> gameObjectActiveModeToSetOnPlay;
     [SerializeField] private GameObject notEnoughCoinsPanel;
+
+    [SerializeField] private GameObject lockIcon;
     private bool buyState;
 
     public bool BuyState
@@ -52,7 +59,8 @@ public class ImagePackSelection : MonoBehaviour
     {
         BuyState = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackBuyStateKey(pack),
             freePack ? 1 : 0) == 1;
-        costOrScoreText.GetComponent<TMP_Text>().text = scoreUnlock
+        var text = scoreUnlock ? scoreNeededText : coinText;
+        text.GetComponent<TMP_Text>().text = scoreUnlock
             ? string.Format(costOrScoreFormatString, scoreRequirement)
             : string.Format(costOrScoreFormatString, cost);
     }
@@ -72,7 +80,10 @@ public class ImagePackSelection : MonoBehaviour
 
 
         highScoreText.SetActive(BuyState);
-        costOrScoreText.SetActive(!BuyState);
+        coinTextParent.SetActive(!BuyState && !scoreUnlock);
+        scoreNeededTextParent.SetActive(!BuyState && scoreUnlock);
+
+        lockIcon.SetActive(!BuyState);
     }
 
 
