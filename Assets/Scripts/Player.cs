@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
-    [Header("SCORE")] [SerializeField] private float startScore;
+    [SerializeField] private float startScore;
 
     [SerializeField] private float scoreReductionPerSecond;
     [SerializeField] private float scoreIncreasePerPuzzle;
@@ -34,6 +34,8 @@ public class Player : Singleton<Player>
         (float) PuzzleCycler.Instance.CurrentlySolvedPuzzles / PuzzleCycler.Instance.PuzzleCount;
 
     public float CurrentLevelTimer { get; private set; }
+
+    public float LevelTimerMax => timeMultiplierOverCompletion.Evaluate(LevelCompletionPercentage) * baseTimePerLevel;
 
     private void Start()
     {
@@ -78,7 +80,7 @@ public class Player : Singleton<Player>
     private void ReEvaluateTimer()
     {
         CurrentLevelTimer =
-            timeMultiplierOverCompletion.Evaluate(LevelCompletionPercentage) * baseTimePerLevel;
+            LevelTimerMax;
         print(CurrentLevelTimer);
     }
 
