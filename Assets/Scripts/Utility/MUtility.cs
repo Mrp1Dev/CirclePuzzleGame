@@ -35,7 +35,7 @@ namespace MUtility
         public static float Sqr(this float f) => Mathf.Pow(f, 2);
         public static float Sqrt(this float f) => Mathf.Sqrt(f);
 
-        public static float Remap(this float f, float min, float max, float newMin, float newMax) =>
+        public static float ReMap(this float f, float min, float max, float newMin, float newMax) =>
             Mathf.Lerp(newMin, newMax, Mathf.InverseLerp(min, max, f));
 
         public static void Delay(this MonoBehaviour owner, Action action, float delay) =>
@@ -73,6 +73,10 @@ namespace MUtility
             go.SetActive(active);
             for (var i = 0; i < go.transform.childCount; i++) go.transform.GetChild(i).gameObject.SetActive(active);
         }
+
+        public static bool ApproxEquals(this Color lhs, Color rhs) =>
+            Mathf.Approximately(lhs.r, rhs.r) && Mathf.Approximately(lhs.g, rhs.g) &&
+            Mathf.Approximately(lhs.b, rhs.b) && Mathf.Approximately(lhs.a, rhs.a);
 
         //-------------NORMAL FUNCTIONS---------------
 

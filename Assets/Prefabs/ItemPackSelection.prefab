@@ -111,8 +111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.937}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -43.151, y: -3.6}
-  m_SizeDelta: {x: -156.4921, y: -26.9809}
+  m_AnchoredPosition: {x: -45.5533, y: -2.8493}
+  m_SizeDelta: {x: -151.7411, y: -25.318}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &613653574261709118
 CanvasRenderer:
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.1
+  m_fontSize: 21.45
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -883,7 +883,6 @@ GameObject:
   - component: {fileID: 6742517692066053163}
   - component: {fileID: 8443224994926183270}
   - component: {fileID: 6447183363915453308}
-  - component: {fileID: 5198767543822556312}
   m_Layer: 5
   m_Name: Needed Score
   m_TagString: Untagged
@@ -1009,21 +1008,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &5198767543822556312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4295087073500064702}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b842143f28709774c996ec76d9285db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  formatString: 'Best Score: <color=#54D75D>{0}</color>'
-  currentHighScoreMode: 0
-  pack: {fileID: 0}
 --- !u!1 &5022114284527496483
 GameObject:
   m_ObjectHideFlags: 0

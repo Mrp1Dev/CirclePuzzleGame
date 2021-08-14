@@ -11,13 +11,21 @@ public class CountDown : MonoBehaviour
 
     private void Start()
     {
+        if (levelCountdownMode)
+        {
+            PuzzleCycler.LevelReload += ResetRect;
+            initialOffsetMax = -Screen.height;
+            var rect = GetComponent<RectTransform>();
+            rect.offsetMax = new Vector2(rect.offsetMax.x, initialOffsetMax);
+            return;
+        }
         initialOffsetMax = GetComponent<RectTransform>().offsetMax.y;
-        if(levelCountdownMode) PuzzleCycler.LevelReload += ResetRect;
     }
 
     private void Update()
     {
         if (levelCountdownMode) timeToEnlarge = Player.Instance.LevelTimerMax;
+        if(levelCountdownMode && Player.Instance.PuzzleRunning == false) return;
         var rect = GetComponent<RectTransform>();
         rect.offsetMax = new Vector2(rect.offsetMax.x, Mathf.Min(rect.offsetMax.y -
                                                                  DeltaPerSecond * Time.deltaTime, 0.0f));
