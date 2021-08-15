@@ -1531,6 +1531,10 @@ MonoBehaviour:
   nextPuzzleButton: {fileID: 2049829177}
   packWinPanel: {fileID: 1418531825}
   winPanelDelay: 2.5
+  puzzleDefaultHeight: 10
+  tweenTime: 1
+  ease: 30
+  puzzle: {fileID: 907748546}
 --- !u!1 &210719695
 GameObject:
   m_ObjectHideFlags: 0

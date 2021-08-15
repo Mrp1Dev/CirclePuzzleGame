@@ -10,6 +10,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
     [field: SerializeField] public PuzzleGenerationSettings DefaultSettings { get; private set; }
 
     public List<PuzzlePiece> CurrentlyActivePieces { get; } = new List<PuzzlePiece>();
+    private Vector3 lastUp = Vector3.up;
 
     private void Start()
     {
@@ -55,9 +56,14 @@ public class PuzzleManager : Singleton<PuzzleManager>
             .GetComponent<SpriteRenderer>();
         instantiated.sprite = settings.image;
         instantiated.sortingOrder = i;
-        instantiated.transform.rotation =
-            Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f));
         instantiated.transform.localScale = new Vector2(settings.diameter, settings.diameter);
+        do
+        {
+            instantiated.transform.rotation =
+                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f));
+        } while (Vector3.Dot(instantiated.transform.up, lastUp) > 0.85f);
+
+        lastUp = instantiated.transform.up;
         return instantiated.transform;
     }
 
