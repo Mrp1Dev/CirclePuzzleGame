@@ -6,6 +6,7 @@ public class Popup : MonoBehaviour
 {
     [SerializeField] private float animationDuration;
     [SerializeField] private Ease ease = Ease.OutBounce;
+    [SerializeField] private float enableDelay;
     private Vector3 initialScale;
 
     private void Awake()
@@ -15,7 +16,8 @@ public class Popup : MonoBehaviour
 
     private void OnEnable()
     {
-        Animate();
+        transform.localScale = Vector2.zero.WithZ(1);
+        this.Delay(Animate, enableDelay);
     }
 
     public void Animate()

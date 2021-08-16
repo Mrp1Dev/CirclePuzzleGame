@@ -1,19 +1,23 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class Player : Singleton<Player>
 {
     [SerializeField] private float startScore;
-
     [SerializeField] private float scoreReductionPerSecond;
     [SerializeField] private float scoreIncreasePerPuzzle;
     [SerializeField] private int coinIncreasePerPuzzleSolved;
-
     [SerializeField] private float baseTimePerLevel;
 
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField]
     private AnimationCurve timeMultiplierOverCompletion;
+
+    [Header("Coin Anim")] [SerializeField] private Transform coinIcon;
+    [SerializeField] private Ease ease;
+    [SerializeField] private float spinDuration;
+
 
     private int coins;
 
@@ -68,6 +72,8 @@ public class Player : Singleton<Player>
     {
         Score += scoreIncreasePerPuzzle;
         Coins += coinIncreasePerPuzzleSolved;
+        if (coinIcon != null)
+            coinIcon.DOLocalRotate(Vector3.forward * 360, spinDuration).SetRelative().SetEase(ease);
         PuzzleRunning = false;
     }
 
