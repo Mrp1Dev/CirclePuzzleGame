@@ -8,5 +8,4 @@ public class CameraResizer : MonoBehaviour
     {
         GetComponent<Camera>().orthographicSize = neededWidth * ((float) Screen.height / Screen.width) * 0.5f;
     }
-
 }

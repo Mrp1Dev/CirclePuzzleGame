@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using MUtility;
 using UnityEngine;
 
 public class PuzzleRotator : MonoBehaviour
 {
     [SerializeField] private LayerMask puzzleLayer;
+    [Header("Audio")]
+    [SerializeField] private AudioSource clickSoundEffect;
+    [SerializeField] private List<AudioClip> clickAudioClips;
     private PuzzlePiece currentlyHeldPiece;
     private Vector2 previousMouseDir = Vector2.zero;
 
@@ -38,7 +42,12 @@ public class PuzzleRotator : MonoBehaviour
                     Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) *
                 currentlyHeldPiece.Image.localRotation;
             previousMouseDir = DirToMouse();
+            if (clickSoundEffect.isPlaying) return;
+            clickSoundEffect.clip = clickAudioClips.RandomElement();
+            clickSoundEffect.Play();
         }
+        else
+            clickSoundEffect.Stop();
     }
 
     private void ToggleSelectionSprite(bool newActive)

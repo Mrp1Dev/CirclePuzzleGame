@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class Player : Singleton<Player>
 {
+    [Header("Score")]
     [SerializeField] private float startScore;
     [SerializeField] private float scoreReductionPerSecond;
     [SerializeField] private float scoreIncreasePerPuzzle;
+
+    [Header("Coins")]
     [SerializeField] private int coinIncreasePerPuzzleSolved;
+
+    [Header("Timer")]
     [SerializeField] private float baseTimePerLevel;
-
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
-    [SerializeField]
-    private AnimationCurve timeMultiplierOverCompletion;
+    [SerializeField] private AnimationCurve timeMultiplierOverCompletion;
 
-    [Header("Coin Anim")] [SerializeField] private Transform coinIcon;
+    [Header("Coin Anim")]
+    [SerializeField] private Transform coinIcon;
     [SerializeField] private Ease ease;
     [SerializeField] private float spinDuration;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource clockTick;
+    [SerializeField] private AnimationCurve tickVolumeOverTimeLeft;
 
     private int coins;
 
@@ -34,12 +41,11 @@ public class Player : Singleton<Player>
         }
     }
 
+    public float CurrentLevelTimer { get; private set; }
+    public float LevelTimerMax => timeMultiplierOverCompletion.Evaluate(LevelCompletionPercentage) * baseTimePerLevel;
+
     private float LevelCompletionPercentage =>
         (float) PuzzleCycler.Instance.CurrentlySolvedPuzzles / PuzzleCycler.Instance.PuzzleCount;
-
-    public float CurrentLevelTimer { get; private set; }
-
-    public float LevelTimerMax => timeMultiplierOverCompletion.Evaluate(LevelCompletionPercentage) * baseTimePerLevel;
 
     private void Start()
     {
@@ -53,7 +59,14 @@ public class Player : Singleton<Player>
 
     private void Update()
     {
-        if (!PuzzleRunning) return;
+        if (PuzzleRunning == false)
+        {
+            clockTick.Stop();
+            return;
+        }
+
+        if (clockTick.isPlaying == false) clockTick.Play();
+
         CurrentLevelTimer -= Time.deltaTime;
 
         if (CurrentLevelTimer <= 0)
@@ -63,6 +76,7 @@ public class Player : Singleton<Player>
         }
 
         Score -= Mathf.Max(scoreReductionPerSecond * Time.deltaTime, 0);
+        clockTick.volume = tickVolumeOverTimeLeft.Evaluate(1 - CurrentLevelTimer / LevelTimerMax);
     }
 
     private void OnDisable() => PuzzleRunning = false;
@@ -73,7 +87,12 @@ public class Player : Singleton<Player>
         Score += scoreIncreasePerPuzzle;
         Coins += coinIncreasePerPuzzleSolved;
         if (coinIcon != null)
+        {
             coinIcon.DOLocalRotate(Vector3.forward * 360, spinDuration).SetRelative().SetEase(ease);
+            coinIcon.DOScale(new Vector3(1.3f, 1.3f, 1.0f), spinDuration / 2.0f).SetLoops(2, LoopType.Yoyo)
+                .SetEase(ease);
+        }
+
         PuzzleRunning = false;
     }
 
@@ -87,7 +106,6 @@ public class Player : Singleton<Player>
     {
         CurrentLevelTimer =
             LevelTimerMax;
-        print(CurrentLevelTimer);
     }
 
     public void ResetValues(float extraTime = 0.0f)

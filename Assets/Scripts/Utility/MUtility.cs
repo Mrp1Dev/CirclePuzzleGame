@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace MUtility
 {
@@ -78,6 +80,7 @@ namespace MUtility
             Mathf.Approximately(lhs.r, rhs.r) && Mathf.Approximately(lhs.g, rhs.g) &&
             Mathf.Approximately(lhs.b, rhs.b) && Mathf.Approximately(lhs.a, rhs.a);
 
+        public static T RandomElement<T>(this IList<T> list) => list[Random.Range(0, list.Count)];
         //-------------NORMAL FUNCTIONS---------------
 
         public static bool Approx(float a, float b, float tolerance = 0.01f) => Mathf.Abs(a - b) <= tolerance;

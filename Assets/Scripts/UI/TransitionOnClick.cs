@@ -9,8 +9,8 @@ public class TransitionOnClick : MonoBehaviour
 
     private void Start()
     {
-        if(autoRegister)
-        GetComponent<Button>().onClick.AddListener(OnClick);
+        if (autoRegister)
+            GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
     public void OnClick()

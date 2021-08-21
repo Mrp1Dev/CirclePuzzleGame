@@ -71,3 +71,5 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 *.psd
+*.wav
+Assets/Art/Audio/Soft Piano Music - Royalty Free - Summit.mp3

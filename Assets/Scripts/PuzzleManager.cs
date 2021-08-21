@@ -6,11 +6,11 @@ using Random = UnityEngine.Random;
 public class PuzzleManager : Singleton<PuzzleManager>
 {
     [SerializeField] private bool generateOnStart = true;
+    private Vector3 lastUp = Vector3.up;
 
     [field: SerializeField] public PuzzleGenerationSettings DefaultSettings { get; private set; }
 
     public List<PuzzlePiece> CurrentlyActivePieces { get; } = new List<PuzzlePiece>();
-    private Vector3 lastUp = Vector3.up;
 
     private void Start()
     {

@@ -23,6 +23,5 @@ public class PuzzlePack : ScriptableObject
     private void Awake()
     {
         currentHighScore = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), 0);
-        Debug.Log(PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), 0));
     }
 }
