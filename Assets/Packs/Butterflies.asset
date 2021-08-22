@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d043111a379c645af2efebf3110d49, type: 3}
+  m_Name: Butterflies
+  m_EditorClassIdentifier: 
+  <Images>k__BackingField:
+  - {fileID: 21300000, guid: 2476db402e649b645997c1464d49a164, type: 3}
+  - {fileID: 21300000, guid: 935ac5f63be964448a165d5abdb5702e, type: 3}
+  - {fileID: 21300000, guid: 09d42292461adf04aae0c5c19195e1bb, type: 3}
+  - {fileID: 21300000, guid: 90dd74696623a0f4e9e5766c7d820019, type: 3}
+  - {fileID: 21300000, guid: c81b717538f6df74f8fd600adc8d3749, type: 3}
+  - {fileID: 21300000, guid: 9537ffd789d82a444b649feab0576854, type: 3}
+  - {fileID: 21300000, guid: 728c8288015e2c9459cfb00de6b6341e, type: 3}
+  - {fileID: 21300000, guid: 1ce55eaa17d67eb488ec0a2018fccc07, type: 3}
+  - {fileID: 21300000, guid: 582f77e4ec30ccc49b19d3c4e755f93d, type: 3}
+  - {fileID: 21300000, guid: f8c93d33bdd99e140a44c83ba666e255, type: 3}
+  - {fileID: 21300000, guid: e08ca38aff810904097a16ad39a1ab63, type: 3}
+  - {fileID: 21300000, guid: cba18f43cafc2e14dae4f2145b87789f, type: 3}
+  - {fileID: 21300000, guid: 78025c5b5b3f2cc4c86ec1128390c28f, type: 3}
+  - {fileID: 21300000, guid: 77e1c22aee89fb745a76f99384ad6565, type: 3}
+  - {fileID: 21300000, guid: 7dc9d0dd7e866334a8a2c82372ce6458, type: 3}
