@@ -15,7 +15,7 @@ public class TransitionOnClick : MonoBehaviour
 
     public void OnClick()
     {
-        if (TryGetComponent<ImagePackSelection>(out var packSelection) && packSelection.BuyState == false) return;
+        if (TryGetComponent<ImagePackSelection>(out var s) && s.BuyState == false) return;
         MenuChanger.Instance.Transition(from, to);
     }
 }

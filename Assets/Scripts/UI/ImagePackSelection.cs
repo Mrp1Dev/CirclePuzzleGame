@@ -21,7 +21,9 @@ public class ImagePackSelection : MonoBehaviour
     [SerializeField] private Color affordableColor;
     [SerializeField] private Color boughtColor;
 
+    [DisableIf(nameof(freePack))]
     [SerializeField] private bool scoreUnlock;
+
 
     [DisableIf(nameof(scoreUnlock))] [SerializeField]
     private int cost;
