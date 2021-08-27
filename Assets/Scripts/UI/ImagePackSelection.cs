@@ -15,15 +15,12 @@ public struct GameObjectActive
 public class ImagePackSelection : MonoBehaviour
 {
     [SerializeField] private PuzzlePack pack;
-    [SerializeField] private bool freePack = true;
     [SerializeField] private Image bgImage;
     [SerializeField] private Color notAffordableColor;
     [SerializeField] private Color affordableColor;
     [SerializeField] private Color boughtColor;
 
-    [DisableIf(nameof(freePack))]
     [SerializeField] private bool scoreUnlock;
-
 
     [DisableIf(nameof(scoreUnlock))] [SerializeField]
     private int cost;
@@ -48,7 +45,7 @@ public class ImagePackSelection : MonoBehaviour
     public bool BuyState
     {
         get => buyState;
-        set
+        private set
         {
             PlayerPrefs.SetInt(PlayerPrefsKeys.GetPackBuyStateKey(pack), value ? 1 : 0);
             buyState = value;
@@ -60,7 +57,7 @@ public class ImagePackSelection : MonoBehaviour
     private void Start()
     {
         BuyState = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackBuyStateKey(pack),
-            freePack ? 1 : 0) == 1;
+            pack.FreePack ? 1 : 0) == 1;
         var text = scoreUnlock ? scoreNeededText : coinText;
         text.GetComponent<TMP_Text>().text = scoreUnlock
             ? string.Format(costOrScoreFormatString, scoreRequirement)

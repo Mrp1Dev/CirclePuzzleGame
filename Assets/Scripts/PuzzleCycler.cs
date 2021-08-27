@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using MUtility;
 using UnityEngine;
@@ -9,14 +10,20 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     [SerializeField] private Button nextPuzzleButton;
     [SerializeField] private GameObject packWinPanel;
     [SerializeField] private float winPanelDelay = 2.5f;
+
     [Header("Puzzle Anim")]
     [SerializeField] private float puzzleDefaultHeight;
     [SerializeField] private float tweenTime;
     [SerializeField] private Ease ease;
     [SerializeField] private GameObject puzzle;
+
+    //ENDLESS MODE
+    private List<PuzzlePack> availablePacks;
+    public bool EndlessMode { get; private set; }
+
     public PuzzlePack SelectedPack { get; private set; }
 
-    public int PuzzleCount => SelectedPack.Images.Count;
+    public int PuzzleCount => EndlessMode ? int.MaxValue : SelectedPack.Images.Count;
     public int CurrentlySolvedPuzzles { get; private set; }
 
     private void Start()
@@ -35,18 +42,27 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     public void Init(PuzzlePack puzzleImages)
     {
         SelectedPack = puzzleImages;
+        availablePacks = null;
+        EndlessMode = false;
+        OnNextPuzzleClick();
+    }
+
+    public void InitEndless(List<PuzzlePack> availablePacks)
+    {
+        this.availablePacks = availablePacks;
+        EndlessMode = true;
         OnNextPuzzleClick();
     }
 
     private void OnNextPuzzleClick()
     {
-        if (CurrentlySolvedPuzzles >= SelectedPack.Images.Count) return;
+        if (EndlessMode == false && CurrentlySolvedPuzzles >= SelectedPack.Images.Count) return;
 
         LevelReload?.Invoke();
         puzzle.transform.localPosition = Vector3.up * puzzleDefaultHeight;
         puzzle.transform.DOLocalMoveY(0f, tweenTime).SetEase(ease);
         var settings = PuzzleManager.Instance.DefaultSettings;
-        settings.image = SelectedPack.Images[CurrentlySolvedPuzzles];
+        settings.image = EndlessMode ? GetRandomPuzzle(availablePacks) : SelectedPack.Images[CurrentlySolvedPuzzles];
         PuzzleManager.Instance.GeneratePuzzle(settings);
         CurrentlySolvedPuzzles++;
     }
@@ -66,4 +82,6 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
         if (regeneratePuzzle)
             OnNextPuzzleClick();
     }
+
+    private Sprite GetRandomPuzzle(List<PuzzlePack> packs) => packs.RandomElement().Images.RandomElement();
 }

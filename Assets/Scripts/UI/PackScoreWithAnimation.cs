@@ -25,5 +25,7 @@ public class PackScoreWithAnimation : MonoBehaviour
             currentValue += increment * Time.deltaTime;
             yield return null;
         }
+
+        GetComponent<TMP_Text>().text = string.Format(formatString, Mathf.RoundToInt(Player.Instance.Score));
     }
 }

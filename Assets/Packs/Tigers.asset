@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d043111a379c645af2efebf3110d49, type: 3}
+  m_Name: Tigers
+  m_EditorClassIdentifier: 
+  <Images>k__BackingField:
+  - {fileID: 21300000, guid: 7e0fad0943468bb4ea1e0b7e2a591c90, type: 3}
+  - {fileID: 21300000, guid: b1654bf0c6d2b134cbf3145c62cb4051, type: 3}
+  - {fileID: 21300000, guid: ca9d1490e4290ae41a815fba797706ba, type: 3}
+  - {fileID: 21300000, guid: 0a88e58b1c9cb67429a49512cb0f909f, type: 3}
+  - {fileID: 21300000, guid: 6341dfdf305c0ef4c8d9d38bf23ad921, type: 3}
+  - {fileID: 21300000, guid: 23fd2719284662d4092de8e1f342b04d, type: 3}
+  - {fileID: 21300000, guid: 91325ef7c6ffabb4192a39c4eb2fdcba, type: 3}
+  - {fileID: 21300000, guid: a049d728c4ed6d143bab65fabada79a6, type: 3}
+  - {fileID: 21300000, guid: 23a9bc19a1891c64183547b6619bfe30, type: 3}
+  - {fileID: 21300000, guid: 401f0b5b5c81f3444856807737bbed5a, type: 3}
+  - {fileID: 21300000, guid: 7d2500bc6e7ab594aa238646601025e0, type: 3}
+  - {fileID: 21300000, guid: f7ba4d642d487aa46a1dac51940e845c, type: 3}
+  - {fileID: 21300000, guid: b175be394c322234db4974ea98a0f935, type: 3}
+  - {fileID: 21300000, guid: b0612b70281a49a478570ff83e3852f3, type: 3}
+  - {fileID: 21300000, guid: d782e8a32caa23d44be4c2f99c125aa6, type: 3}

@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7d043111a379c645af2efebf3110d49, type: 3}
+  m_Name: Squirrels
+  m_EditorClassIdentifier: 
+  <Images>k__BackingField:
+  - {fileID: 21300000, guid: 24fa2d33492694c44be664c2cce5c7df, type: 3}
+  - {fileID: 21300000, guid: d0f4e933e97cbff44b655ea996eee566, type: 3}
+  - {fileID: 21300000, guid: b1e0264b85874f74ca068107dc554280, type: 3}
+  - {fileID: 21300000, guid: 13293579d099c324b86f199e7961d0cc, type: 3}
+  - {fileID: 21300000, guid: e1ecc704d9e88244aaf2951e91ac3ecb, type: 3}
+  - {fileID: 21300000, guid: c4ea101d16d157143b9bf4a8537b5942, type: 3}
+  - {fileID: 21300000, guid: 9e447d8c0e4f0ac49bbe53bca27dfa29, type: 3}
+  - {fileID: 21300000, guid: 7d8ec72d4684db449b0293cceb9c856f, type: 3}
+  - {fileID: 21300000, guid: e1b6fe7807f1af0458cc37c378e16393, type: 3}
+  - {fileID: 21300000, guid: db91193b439fbde4db13c2ffe1a14e33, type: 3}
+  - {fileID: 21300000, guid: 52534f115aeb76347983f16c7af67914, type: 3}
+  - {fileID: 21300000, guid: 43b70c127aad1504b83c6b7c53ec7760, type: 3}
+  - {fileID: 21300000, guid: 55a2430ea7c1f1346bf30ab1cc9290d6, type: 3}
+  - {fileID: 21300000, guid: fe3234553104ad94aafe8a9915dbac80, type: 3}
+  - {fileID: 21300000, guid: 86d721b876e5d7d4ea791b5aeaf19fb8, type: 3}

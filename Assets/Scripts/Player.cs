@@ -17,6 +17,11 @@ public class Player : Singleton<Player>
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField] private AnimationCurve timeMultiplierOverCompletion;
 
+    [field: Header("Endless Timer")]
+    [field: SerializeField] public float EndlessStartTimer { get; private set; }
+
+    [SerializeField] private float endlessTimeIncreasePerLevel;
+
     [Header("Coin Anim")]
     [SerializeField] private Transform coinIcon;
     [SerializeField] private Ease ease;
@@ -51,12 +56,10 @@ public class Player : Singleton<Player>
     {
         Score = startScore;
         Coins = PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0);
-        CurrentLevelTimer = baseTimePerLevel;
+        CurrentLevelTimer = PuzzleCycler.Instance.EndlessMode ? EndlessStartTimer : baseTimePerLevel;
         WinConditionChecker.GameWon += OnWin;
         PuzzleCycler.LevelReload += OnLevelReload;
     }
-
-
     private void Update()
     {
         if (PuzzleRunning == false)
@@ -104,8 +107,8 @@ public class Player : Singleton<Player>
 
     private void ReEvaluateTimer()
     {
-        CurrentLevelTimer =
-            LevelTimerMax;
+        if (PuzzleCycler.Instance.EndlessMode) CurrentLevelTimer += endlessTimeIncreasePerLevel;
+        else CurrentLevelTimer = LevelTimerMax;
     }
 
     public void ResetValues(float extraTime = 0.0f)
@@ -115,4 +118,6 @@ public class Player : Singleton<Player>
         ReEvaluateTimer();
         CurrentLevelTimer += extraTime;
     }
+
+    public void StartEndlessTimer() => CurrentLevelTimer = EndlessStartTimer;
 }

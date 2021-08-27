@@ -9,7 +9,6 @@ namespace MUtility
     public static class MUtils
     {
         //-----------EXTENSION METHODS--------------
-
         public static Vector3 X0Z(this Vector3 vec) => new Vector3(vec.x, 0, vec.z);
         public static Vector3 X0Y(this Vector2 vec) => new Vector3(vec.x, 0, vec.y);
         public static Vector3 WithY(this Vector3 vec, float y) => new Vector3(vec.x, y, vec.z);
@@ -96,6 +95,8 @@ namespace MUtility
 
             return Mathf.RoundToInt(res);
         }
+
+        public static bool PercentChance(float percent) => Random.value <= percent / 100.0f;
 
         private static IEnumerator DelayInternal(Action action, float delay, bool realtime)
         {

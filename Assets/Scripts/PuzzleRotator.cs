@@ -56,5 +56,5 @@ public class PuzzleRotator : MonoBehaviour
         currentlyHeldPiece.Border.gameObject.SetActive(newActive);
     }
 
-    private Vector2 DirToMouse() => (MousePos - transform.position.XY()).normalized;
+    private Vector2 DirToMouse() => transform.position.XY().DirTo(MousePos);
 }

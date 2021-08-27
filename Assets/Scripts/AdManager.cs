@@ -10,6 +10,7 @@ public class AdManager : Singleton<AdManager>
 
     [SerializeField] private GameObject adLoadingPanel;
     [SerializeField] private GameObject puzzleLostPanel;
+    [SerializeField] private GameObject endlessPuzzleLostPanel;
     [SerializeField] private float extraTimeOnRevival;
     private bool adFailedToLoad;
     private AdType currentRunningAd;
@@ -148,7 +149,8 @@ public class AdManager : Singleton<AdManager>
         switch (currentRunningAd)
         {
             case AdType.Revival:
-                puzzleLostPanel.SetActive(false);
+                if (PuzzleCycler.Instance.EndlessMode) endlessPuzzleLostPanel.SetActive(false);
+                else puzzleLostPanel.SetActive(false);
                 Player.Instance.ResetValues(extraTimeOnRevival);
                 break;
             case AdType.Coins when Player.Instance == null:
