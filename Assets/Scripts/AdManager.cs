@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using GoogleMobileAds.Api;
 using UnityEngine;
 
@@ -26,6 +27,17 @@ public class AdManager : Singleton<AdManager>
 
     private void Start()
     {
+        List<string> deviceIds = new List<string>() { AdRequest.TestDeviceSimulator };
+
+        deviceIds.Add("21EC2B006E2B12A4D98062ADEDA39B00");
+
+        // Configure TagForChildDirectedTreatment and test device IDs.
+        RequestConfiguration requestConfiguration =
+            new RequestConfiguration.Builder()
+            .SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.True)
+            .SetTestDeviceIds(deviceIds).build();
+        MobileAds.SetRequestConfiguration(requestConfiguration);
+
         MobileAds.Initialize(status => InitAds());
     }
 
