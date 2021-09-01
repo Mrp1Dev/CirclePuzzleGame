@@ -9,6 +9,7 @@ public class PuzzlePack : ScriptableObject
     private int currentHighScore;
     [field: SerializeField] public List<Sprite> Images { get; private set; }
     [field: SerializeField] public bool FreePack { get; private set; }
+
     public int CurrentHighScore
     {
         get => currentHighScore;

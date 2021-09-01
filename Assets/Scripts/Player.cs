@@ -17,9 +17,6 @@ public class Player : Singleton<Player>
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField] private AnimationCurve timeMultiplierOverCompletion;
 
-    [field: Header("Endless Timer")]
-    [field: SerializeField] public float EndlessStartTimer { get; private set; }
-
     [SerializeField] private float endlessTimeIncreasePerLevel;
 
     [Header("Coin Anim")]
@@ -32,6 +29,9 @@ public class Player : Singleton<Player>
     [SerializeField] private AnimationCurve tickVolumeOverTimeLeft;
 
     private int coins;
+
+    [field: Header("Endless Timer")]
+    [field: SerializeField] public float EndlessStartTimer { get; private set; }
 
     public bool PuzzleRunning { get; set; } = true;
     public float Score { get; private set; }
@@ -60,6 +60,7 @@ public class Player : Singleton<Player>
         WinConditionChecker.GameWon += OnWin;
         PuzzleCycler.LevelReload += OnLevelReload;
     }
+
     private void Update()
     {
         if (PuzzleRunning == false)

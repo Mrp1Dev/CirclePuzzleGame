@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -17,8 +18,10 @@ public class EndlessPlayButton : MonoBehaviour
     {
         gameObjectsToSetActive.ForEach(go => go.gameObject.SetActive(go.active));
         var availablePacks =
-            packs.Where(p => PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackBuyStateKey(p), p.FreePack ? 1 : 0) == 1).ToList();
+            packs.Where(p => PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackBuyStateKey(p), p.FreePack ? 1 : 0) == 1)
+                .ToList();
         PuzzleCycler.Instance.InitEndless(availablePacks);
         Player.Instance.StartEndlessTimer();
+
     }
 }

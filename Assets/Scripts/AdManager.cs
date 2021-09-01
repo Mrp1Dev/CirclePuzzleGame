@@ -6,8 +6,9 @@ using UnityEngine;
 public class AdManager : Singleton<AdManager>
 {
 
-    private const string adUnitID = "ca-app-pub-3940256099942544/5224354917";
-
+    private const string testAdUnitID = "ca-app-pub-3940256099942544/5224354917";
+    private const string rewardedAdUnitID = "ca-app-pub-3940256099942544/5224354917";
+    private const string interstitialAdUnitID = "ca-app-pub-3940256099942544/1033173712";
     [SerializeField] private GameObject adLoadingPanel;
     [SerializeField] private GameObject puzzleLostPanel;
     [SerializeField] private GameObject endlessPuzzleLostPanel;
@@ -19,12 +20,18 @@ public class AdManager : Singleton<AdManager>
 
     private RewardedAd rewardedAd;
     private bool rewardedAdFailedToLoad;
+
+    private bool adsInitialized = false;
     [field: SerializeField] public int CoinIncreaseOnWatch { get; private set; }
 
     private void Start()
     {
-        MobileAds.Initialize(status => { });
-        rewardedAd = new RewardedAd(adUnitID);
+        MobileAds.Initialize(status => InitAds());
+    }
+
+    private void InitAds()
+    {
+        rewardedAd = new RewardedAd(rewardedAdUnitID);
 
         // Called when an ad request has successfully loaded.
         rewardedAd.OnAdLoaded += HandleRewardedAdLoaded;
@@ -39,7 +46,7 @@ public class AdManager : Singleton<AdManager>
         // Called when the ad is closed.
         rewardedAd.OnAdClosed += HandleRewardedAdClosed;
 
-        interstitial = new InterstitialAd(adUnitID);
+        interstitial = new InterstitialAd(interstitialAdUnitID);
 
         // Called when an ad request failed to load.
         interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
@@ -50,6 +57,7 @@ public class AdManager : Singleton<AdManager>
 
         RequestRewardedAd();
         RequestAd();
+        adsInitialized = true;
     }
 
     private void HandleOnAdClosed(object sender, EventArgs e)
@@ -165,11 +173,7 @@ public class AdManager : Singleton<AdManager>
         }
     }
 
-    public void OnReviveWanted()
-    {
-        TryReloadRewardedAd();
-        StartCoroutine(TryShowRewardedAd(AdType.Revival));
-    }
+   
 
     private void TryReloadRewardedAd()
     {
@@ -185,6 +189,12 @@ public class AdManager : Singleton<AdManager>
         RequestAd();
     }
 
+    public void OnReviveWanted()
+    {
+        TryReloadRewardedAd();
+        StartCoroutine(TryShowRewardedAd(AdType.Revival));
+    }
+
     public void OnCoinsWanted()
     {
         TryReloadRewardedAd();
@@ -193,7 +203,6 @@ public class AdManager : Singleton<AdManager>
 
     public void OnInterstitialWanted(bool puzzleRunningAfterAd = false)
     {
-        print("Interstitial wanted called!");
         puzzleRunningAfterInterstitial = puzzleRunningAfterAd;
         TryReloadAd();
         StartCoroutine(TryShowInterstitialAd());

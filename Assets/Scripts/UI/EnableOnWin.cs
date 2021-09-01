@@ -17,7 +17,8 @@ public class EnableOnWin : MonoBehaviour
 
     private void OnWin()
     {
-        if (PuzzleCycler.Instance.EndlessMode == false && PuzzleCycler.Instance.PuzzleCount - PuzzleCycler.Instance.CurrentlySolvedPuzzles <= 0 &&
+        if (PuzzleCycler.Instance.EndlessMode == false &&
+            PuzzleCycler.Instance.PuzzleCount - PuzzleCycler.Instance.CurrentlySolvedPuzzles <= 0 &&
             enableOnFinalWin == false) return;
         gameObject.SetActive(true);
     }

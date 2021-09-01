@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-
 namespace GoogleMobileAds.Editor
 {
 

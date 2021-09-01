@@ -8,12 +8,8 @@ public class HighScoreText : MonoBehaviour
     [SerializeField] private PuzzlePack pack;
     [SerializeField] private bool endlessMode;
 
-    private void OnEnable()
-    {
-        if (!endlessMode) return;
-        if (Player.Instance.Score > PlayerPrefsHighScore)
-            PlayerPrefs.SetInt(PlayerPrefsKeys.EndlessHighScoreKey, Mathf.RoundToInt(Player.Instance.Score));
-    }
+    private static int PlayerPrefsHighScore =>
+        PlayerPrefs.GetInt(PlayerPrefsKeys.EndlessHighScoreKey, Mathf.RoundToInt(Player.Instance.Score));
 
     private void Update()
     {
@@ -30,6 +26,10 @@ public class HighScoreText : MonoBehaviour
                 : pack.CurrentHighScore);
     }
 
-    private static int PlayerPrefsHighScore =>
-        PlayerPrefs.GetInt(PlayerPrefsKeys.EndlessHighScoreKey, Mathf.RoundToInt(Player.Instance.Score));
+    private void OnEnable()
+    {
+        if (!endlessMode) return;
+        if (Player.Instance.Score > PlayerPrefsHighScore)
+            PlayerPrefs.SetInt(PlayerPrefsKeys.EndlessHighScoreKey, Mathf.RoundToInt(Player.Instance.Score));
+    }
 }
