@@ -1,7 +1,7 @@
+using GoogleMobileAds.Api;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GoogleMobileAds.Api;
 using UnityEngine;
 
 public class AdManager : Singleton<AdManager>
@@ -99,8 +99,7 @@ public class AdManager : Singleton<AdManager>
                 adLoadingPanel.SetActive(false);
                 yield break;
             }
-
-            yield return null;
+            yield return new WaitForSecondsRealtime(0.1f);
         }
 
         rewardedAd.Show();
@@ -166,6 +165,7 @@ public class AdManager : Singleton<AdManager>
 
     private void HandleUserEarnedReward(object sender, Reward args)
     {
+        print($"{nameof(HandleUserEarnedReward)} was called.");
         switch (currentRunningAd)
         {
             case AdType.Revival:
@@ -184,9 +184,6 @@ public class AdManager : Singleton<AdManager>
                 return;
         }
     }
-
-   
-
     private void TryReloadRewardedAd()
     {
         if (!rewardedAdFailedToLoad) return;
@@ -203,18 +200,29 @@ public class AdManager : Singleton<AdManager>
 
     public void OnReviveWanted()
     {
+        print($"{nameof(OnReviveWanted)} was called, were ads initialized yet?: {adsInitialized}");
         TryReloadRewardedAd();
         StartCoroutine(TryShowRewardedAd(AdType.Revival));
     }
 
     public void OnCoinsWanted()
     {
+        print($"{nameof(OnCoinsWanted)} was called, were ads initialized yet?: {adsInitialized}");
         TryReloadRewardedAd();
         StartCoroutine(TryShowRewardedAd(AdType.Coins));
+    }
+    
+    public void OnTestRewardedAdWanted()
+    {
+        print($"{nameof(OnTestRewardedAdWanted)} was called, were ads initialized yet?: {adsInitialized}");
+        TryReloadRewardedAd();
+        StartCoroutine(TryShowRewardedAd(AdType.None));
+
     }
 
     public void OnInterstitialWanted(bool puzzleRunningAfterAd = false)
     {
+        print($"{nameof(OnInterstitialWanted)} was called, were ads initialized yet?: {adsInitialized}");
         puzzleRunningAfterInterstitial = puzzleRunningAfterAd;
         TryReloadAd();
         StartCoroutine(TryShowInterstitialAd());

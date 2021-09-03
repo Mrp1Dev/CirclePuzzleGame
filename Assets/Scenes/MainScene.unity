@@ -6398,7 +6398,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interstitialChance: 10
+  interstitialChance: 100
   puzzleRunningAfterInterstitial: 1
 --- !u!114 &819573505
 MonoBehaviour:
@@ -7116,7 +7116,7 @@ MonoBehaviour:
   scoreReductionPerSecond: 60
   scoreIncreasePerPuzzle: 1000
   coinIncreasePerPuzzleSolved: 1
-  baseTimePerLevel: 3
+  baseTimePerLevel: 15
   timeMultiplierOverCompletion:
     serializedVersion: 2
     m_Curve:
@@ -12185,7 +12185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interstitialChance: 10
+  interstitialChance: 100
   puzzleRunningAfterInterstitial: 0
 --- !u!114 &1739695205
 MonoBehaviour:

@@ -24,7 +24,6 @@ public class WinConditionChecker : Singleton<WinConditionChecker>
                     PuzzleManager.Instance.CurrentlyActivePieces[0].Image.up) >
                 toleranceAngle)
                 return;
-
         GameWon?.Invoke();
     }
 
