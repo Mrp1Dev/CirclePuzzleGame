@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "198922966092",
+    "project_id": "circlepuzzlegame",
+    "storage_bucket": "circlepuzzlegame.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:198922966092:android:47d0ddf67d4cbec3f990e9",
+        "android_client_info": {
+          "package_name": "com.mrp1.circlepuzzlegame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "198922966092-rnagrppnnm7pnokascp71o1du07seqbt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTpq686EX6AsMnUHt2DMp5LM17LFWK5us"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "198922966092-rnagrppnnm7pnokascp71o1du07seqbt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      },
+      "admob_app_id": "ca-app-pub-4475967515351966~9881044359"
+    }
+  ],
+  "configuration_version": "1"
+}

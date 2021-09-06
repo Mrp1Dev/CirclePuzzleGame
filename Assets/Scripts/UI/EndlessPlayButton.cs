@@ -22,6 +22,6 @@ public class EndlessPlayButton : MonoBehaviour
                 .ToList();
         PuzzleCycler.Instance.InitEndless(availablePacks);
         Player.Instance.StartEndlessTimer();
-
+        FirebaseManager.Instance.OnEndlessModeClicked();
     }
 }

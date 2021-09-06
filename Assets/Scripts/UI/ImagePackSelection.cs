@@ -22,10 +22,12 @@ public class ImagePackSelection : MonoBehaviour
 
     [SerializeField] private bool scoreUnlock;
 
-    [DisableIf(nameof(scoreUnlock))] [SerializeField]
+    [DisableIf(nameof(scoreUnlock))]
+    [SerializeField]
     private int cost;
 
-    [EnableIf(nameof(scoreUnlock))] [SerializeField]
+    [EnableIf(nameof(scoreUnlock))]
+    [SerializeField]
     private int scoreRequirement;
 
     [SerializeField] private GameObject highScoreText;
@@ -94,6 +96,7 @@ public class ImagePackSelection : MonoBehaviour
                 gameObjectActiveMode.gameObject.SetActive(gameObjectActiveMode.active);
 
             PuzzleCycler.Instance.Init(pack);
+            FirebaseManager.Instance.OnPackOpened(pack);
         }
         else
             TryUnlock();
@@ -103,27 +106,31 @@ public class ImagePackSelection : MonoBehaviour
     {
         if (scoreUnlock)
         {
-            if (TotalBestScore.Instance.TotalScore > scoreRequirement) BuyState = true;
-            return;
+            if (TotalBestScore.Instance.TotalScore > scoreRequirement)
+            {
+                FirebaseManager.Instance.OnPackBought(pack, scoreUnlock);
+                BuyState = true;
+            }
         }
-
-        if (Player.Instance != null)
+        else if (Player.Instance != null)
         {
             if (Player.Instance.Coins >= cost)
             {
                 Player.Instance.Coins -= cost;
                 BuyState = true;
-                return;
+                FirebaseManager.Instance.OnPackBought(pack, scoreUnlock);
             }
         }
-
-        if (PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) >= cost)
+        else if (PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) >= cost)
         {
             PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey, PlayerPrefsCoins - cost);
             BuyState = true;
-            return;
+            FirebaseManager.Instance.OnPackBought(pack, scoreUnlock);
+        }
+        else
+        {
+            notEnoughCoinsPanel.SetActive(true);
         }
 
-        notEnoughCoinsPanel.SetActive(true);
     }
 }

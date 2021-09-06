@@ -71,8 +71,12 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     {
         if (Instance.PuzzleCount - Instance.CurrentlySolvedPuzzles > 0) return;
         if (Player.Instance.Score > SelectedPack.CurrentHighScore)
+        {
             SelectedPack.CurrentHighScore = Mathf.RoundToInt(Player.Instance.Score);
+            FirebaseManager.Instance.OnPackHighScoreMade(SelectedPack, Mathf.RoundToInt(Player.Instance.Score));
+        }
         this.DelayUnscaled(() => packWinPanel.SetActive(true), winPanelDelay);
+        FirebaseManager.Instance.OnPackWon(SelectedPack, Mathf.RoundToInt(Player.Instance.Score));
     }
 
     public void ResetValues(bool clearImages = false, bool regeneratePuzzle = false)

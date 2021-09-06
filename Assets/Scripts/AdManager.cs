@@ -34,7 +34,7 @@ public class AdManager : Singleton<AdManager>
         // Configure TagForChildDirectedTreatment and test device IDs.
         RequestConfiguration requestConfiguration =
             new RequestConfiguration.Builder()
-            .SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.True)
+            .SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.False)
             .SetTestDeviceIds(deviceIds).build();
         MobileAds.SetRequestConfiguration(requestConfiguration);
 

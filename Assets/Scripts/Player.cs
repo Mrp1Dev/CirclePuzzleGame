@@ -17,7 +17,6 @@ public class Player : Singleton<Player>
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField] private AnimationCurve timeMultiplierOverCompletion;
 
-    [SerializeField] private float endlessTimeIncreasePerLevel;
 
     [Header("Coin Anim")]
     [SerializeField] private Transform coinIcon;
@@ -32,6 +31,7 @@ public class Player : Singleton<Player>
 
     [field: Header("Endless Timer")]
     [field: SerializeField] public float EndlessStartTimer { get; private set; }
+    [SerializeField] private float endlessTimeIncreasePerLevel;
 
     public bool PuzzleRunning { get; set; } = true;
     public float Score { get; private set; }
@@ -75,6 +75,7 @@ public class Player : Singleton<Player>
 
         if (CurrentLevelTimer <= 0)
         {
+            FirebaseManager.Instance.OnPackLost(PuzzleCycler.Instance.SelectedPack, PuzzleCycler.Instance.CurrentlySolvedPuzzles);
             GameLost?.Invoke();
             PuzzleRunning = false;
         }
@@ -98,6 +99,8 @@ public class Player : Singleton<Player>
         }
 
         PuzzleRunning = false;
+
+        FirebaseManager.Instance.OnPuzzleSolved(PuzzleCycler.Instance.SelectedPack, CurrentLevelTimer);
     }
 
     private void OnLevelReload()

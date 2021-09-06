@@ -1258,6 +1258,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 448146466}
+        m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
+        m_MethodName: OnNormalModeClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &145599555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1894,7 +1906,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 156cc46e80c01674ca7fd601947d9dc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toleranceAngle: 8
+  toleranceAngle: 6
   adjustmentSpeed: 10
   gameLostPanel: {fileID: 553557916}
 --- !u!4 &178026899
@@ -3127,7 +3139,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: scoreUnlock
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
+      propertyPath: scoreRequirement
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: notEnoughCoinsPanel
@@ -5129,7 +5145,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: cost
-      value: 60
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: pack
@@ -5516,7 +5532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: cost
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: pack
@@ -5815,7 +5831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: cost
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: pack
@@ -6398,7 +6414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interstitialChance: 100
+  interstitialChance: 10
   puzzleRunningAfterInterstitial: 1
 --- !u!114 &819573505
 MonoBehaviour:
@@ -7113,10 +7129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startScore: 1000
-  scoreReductionPerSecond: 60
+  scoreReductionPerSecond: 20
   scoreIncreasePerPuzzle: 1000
   coinIncreasePerPuzzleSolved: 1
-  baseTimePerLevel: 15
+  baseTimePerLevel: 26
   timeMultiplierOverCompletion:
     serializedVersion: 2
     m_Curve:
@@ -7150,7 +7166,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  endlessTimeIncreasePerLevel: 5
   coinIcon: {fileID: 2103305373}
   ease: 28
   spinDuration: 1.25
@@ -7197,7 +7212,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <EndlessStartTimer>k__BackingField: 1
+  <EndlessStartTimer>k__BackingField: 60
+  endlessTimeIncreasePerLevel: 12
 --- !u!82 &981395487
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8091,7 +8107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: scoreRequirement
-      value: 50000
+      value: 150000
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: notEnoughCoinsPanel
@@ -9855,7 +9871,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: cost
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 613653574681615942, guid: d79daccd3983c534dad7341b06fb00e5, type: 3}
       propertyPath: pack
@@ -12185,7 +12201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a557e3f5c570c14c9b543fa38a24cde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interstitialChance: 100
+  interstitialChance: 10
   puzzleRunningAfterInterstitial: 0
 --- !u!114 &1739695205
 MonoBehaviour:

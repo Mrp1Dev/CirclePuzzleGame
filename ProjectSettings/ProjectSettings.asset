@@ -235,7 +235,7 @@ PlayerSettings:
   useCustomLauncherGradleManifest: 0
   useCustomBaseGradleTemplate: 0
   useCustomGradlePropertiesTemplate: 0
-  useCustomProguardFile: 1
+  useCustomProguardFile: 0
   AndroidTargetArchitectures: 1
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
@@ -254,7 +254,7 @@ PlayerSettings:
     banner: {fileID: 0}
   androidGamepadSupportLevel: 0
   AndroidMinifyWithR8: 0
-  AndroidMinifyRelease: 1
+  AndroidMinifyRelease: 0
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
@@ -664,7 +664,7 @@ PlayerSettings:
   il2cppCompilerConfiguration:
     Android: 1
   managedStrippingLevel:
-    Android: 3
+    Android: 0
   incrementalIl2cppBuild: {}
   suppressCommonWarnings: 1
   allowUnsafeCode: 0
