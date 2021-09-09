@@ -38,7 +38,6 @@ public class FirebaseManager : Singleton<FirebaseManager>
                 // Create and hold a reference to your FirebaseApp,
                 // where app is a Firebase.FirebaseApp property of your application class.
                 app = FirebaseApp.DefaultInstance;
-
                 // Set a flag here to indicate whether Firebase is ready to use by your app.
             }
             else
@@ -65,36 +64,40 @@ public class FirebaseManager : Singleton<FirebaseManager>
     public void OnPackOpened(PuzzlePack pack)
     {
         if (app == null) Debug.LogWarning($"{nameof(OnPackOpened)} was called but app wasn't loaded.");
-        else FirebaseAnalytics.LogEvent(PackOpened, new Parameter(GlobalParamPackName, pack.name));
+        //else FirebaseAnalytics.LogEvent(PackOpened, new Parameter(GlobalParamPackName, pack.name));
     }
 
     public void OnPackLost(PuzzlePack pack, int level)
     {
         if (app == null) Debug.LogWarning($"{nameof(OnPackLost)} was called but app wasn't loaded.");
-        else FirebaseAnalytics.LogEvent(PackLost, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackLostParamAtLevel, level));
+        //else FirebaseAnalytics.LogEvent(PackLost, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackLostParamAtLevel, level));
     }
 
     public void OnPackWon(PuzzlePack pack, int score)
     {
         if (app == null) Debug.LogWarning($"{nameof(OnPackWon)} was called but app wasn't loaded.");
-        else FirebaseAnalytics.LogEvent(PackWon, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackWonParamWithScore, score));
+        //else FirebaseAnalytics.LogEvent(PackWon, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackWonParamWithScore, score));
     }
 
     public void OnPuzzleSolved(PuzzlePack pack, float timeLeft)
     {
         if (app == null) Debug.LogWarning($"{nameof(OnPackWon)} was called but app wasn't loaded.");
-        else FirebaseAnalytics.LogEvent(PuzzleSolved, new Parameter(GlobalParamPackName, pack.name), new Parameter(PuzzleSolvedParamWithTimeLeft, timeLeft));
+        else
+        {
+            FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelEnd, new Parameter(FirebaseAnalytics.ParameterValue, timeLeft), new Parameter(FirebaseAnalytics.ParameterLevelName, pack.name));
+            print($"CALLED FIREBASE EVENT {nameof(OnPuzzleSolved)}");
+        }
     }
 
     public void OnPackHighScoreMade(PuzzlePack pack, int newHighScore)
     {
         if (app == null) Debug.LogWarning($"{nameof(OnPackHighScoreMade)} was called but app wasn't loaded.");
-        else FirebaseAnalytics.LogEvent(PackHighScoreMade, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackHighScoreMadeParamNewHighScore, newHighScore));
+        //else FirebaseAnalytics.LogEvent(PackHighScoreMade, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackHighScoreMadeParamNewHighScore, newHighScore));
     }
 
     public void OnPackBought(PuzzlePack pack, bool scoreMode)
     {
         if (app == null) Debug.LogWarning($"{nameof(OnPackBought)} was called but app wasn't loaded.");
-        else FirebaseAnalytics.LogEvent(PackBought, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackBoughtParamMode, scoreMode ? "score" : "coins"));
+        //else FirebaseAnalytics.LogEvent(PackBought, new Parameter(GlobalParamPackName, pack.name), new Parameter(PackBoughtParamMode, scoreMode ? "score" : "coins"));
     }
 }

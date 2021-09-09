@@ -8,10 +8,21 @@ public class PuzzleRotator : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private AudioSource clickSoundEffect;
     [SerializeField] private List<AudioClip> clickAudioClips;
+    [SerializeField] private DisableWithEase finger;
     private PuzzlePiece currentlyHeldPiece;
     private Vector2 previousMouseDir = Vector2.zero;
 
     private Vector2 MousePos => Camera.main.ScreenToWorldPoint(Input.mousePosition).XY();
+
+    private void Start()
+    {
+        WinConditionChecker.GameWon += () => ToggleSelectionSprite(false);
+    }
+
+    private void OnDestroy()
+    {
+        WinConditionChecker.GameWon -= () => ToggleSelectionSprite(false);
+    }
 
     private void Update()
     {
@@ -29,6 +40,7 @@ public class PuzzleRotator : MonoBehaviour
                     smallestSize = hit.transform.localScale.sqrMagnitude;
                     currentlyHeldPiece = hit.transform.GetComponent<PuzzlePiece>();
                 }
+                finger.Disable();
             }
 
             ToggleSelectionSprite(true);

@@ -11,11 +11,13 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     [SerializeField] private GameObject packWinPanel;
     [SerializeField] private float winPanelDelay = 2.5f;
 
+    [SerializeField] private GameObject tutorialText;
     [Header("Puzzle Anim")]
     [SerializeField] private float puzzleDefaultHeight;
     [SerializeField] private float tweenTime;
     [SerializeField] private Ease ease;
     [SerializeField] private GameObject puzzle;
+    
 
     //ENDLESS MODE
     private List<PuzzlePack> availablePacks;
@@ -44,6 +46,7 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
         SelectedPack = puzzleImages;
         availablePacks = null;
         EndlessMode = false;
+        tutorialText.SetActive(true);
         OnNextPuzzleClick();
     }
 

@@ -120,6 +120,8 @@ public class ImagePackSelection : MonoBehaviour
                 BuyState = true;
                 FirebaseManager.Instance.OnPackBought(pack, scoreUnlock);
             }
+            else
+                notEnoughCoinsPanel.SetActive(true);
         }
         else if (PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) >= cost)
         {
@@ -128,9 +130,6 @@ public class ImagePackSelection : MonoBehaviour
             FirebaseManager.Instance.OnPackBought(pack, scoreUnlock);
         }
         else
-        {
             notEnoughCoinsPanel.SetActive(true);
-        }
-
     }
 }

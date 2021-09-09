@@ -19,9 +19,7 @@ public class Player : Singleton<Player>
 
 
     [Header("Coin Anim")]
-    [SerializeField] private Transform coinIcon;
-    [SerializeField] private Ease ease;
-    [SerializeField] private float spinDuration;
+    [SerializeField] private CoinRotator rotator;
 
     [Header("Audio")]
     [SerializeField] private AudioSource clockTick;
@@ -32,7 +30,6 @@ public class Player : Singleton<Player>
     [field: Header("Endless Timer")]
     [field: SerializeField] public float EndlessStartTimer { get; private set; }
     [SerializeField] private float endlessTimeIncreasePerLevel;
-
     public bool PuzzleRunning { get; set; } = true;
     public float Score { get; private set; }
 
@@ -51,12 +48,13 @@ public class Player : Singleton<Player>
 
     private float LevelCompletionPercentage =>
         (float) PuzzleCycler.Instance.CurrentlySolvedPuzzles / PuzzleCycler.Instance.PuzzleCount;
-
     private void Start()
     {
         Score = startScore;
         Coins = PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0);
-        CurrentLevelTimer = PuzzleCycler.Instance.EndlessMode ? EndlessStartTimer : baseTimePerLevel;
+        if (TutorialManager.TutorialFinished)
+            CurrentLevelTimer = PuzzleCycler.Instance.EndlessMode ? EndlessStartTimer : baseTimePerLevel;
+        else CurrentLevelTimer = Mathf.Infinity;
         WinConditionChecker.GameWon += OnWin;
         PuzzleCycler.LevelReload += OnLevelReload;
     }
@@ -91,15 +89,9 @@ public class Player : Singleton<Player>
     {
         Score += scoreIncreasePerPuzzle;
         Coins += coinIncreasePerPuzzleSolved;
-        if (coinIcon != null)
-        {
-            coinIcon.DOLocalRotate(Vector3.forward * 360, spinDuration).SetRelative().SetEase(ease);
-            coinIcon.DOScale(new Vector3(1.3f, 1.3f, 1.0f), spinDuration / 2.0f).SetLoops(2, LoopType.Yoyo)
-                .SetEase(ease);
-        }
-
+        rotator.RotateCoin();
         PuzzleRunning = false;
-
+        print($"Current Level Timer: {CurrentLevelTimer}");
         FirebaseManager.Instance.OnPuzzleSolved(PuzzleCycler.Instance.SelectedPack, CurrentLevelTimer);
     }
 
@@ -111,7 +103,8 @@ public class Player : Singleton<Player>
 
     private void ReEvaluateTimer()
     {
-        if (PuzzleCycler.Instance.EndlessMode) CurrentLevelTimer += endlessTimeIncreasePerLevel;
+        if (TutorialManager.TutorialFinished == false) CurrentLevelTimer = Mathf.Infinity;
+        else if (PuzzleCycler.Instance.EndlessMode) CurrentLevelTimer += endlessTimeIncreasePerLevel;
         else CurrentLevelTimer = LevelTimerMax;
     }
 

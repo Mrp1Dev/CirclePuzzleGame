@@ -14,6 +14,7 @@ public class AdManager : Singleton<AdManager>
     [SerializeField] private GameObject puzzleLostPanel;
     [SerializeField] private GameObject endlessPuzzleLostPanel;
     [SerializeField] private float extraTimeOnRevival;
+    [SerializeField] private CoinRotator rotator;
     private bool adFailedToLoad;
     private AdType currentRunningAd;
     private InterstitialAd interstitial;
@@ -173,12 +174,14 @@ public class AdManager : Singleton<AdManager>
                 else puzzleLostPanel.SetActive(false);
                 Player.Instance.ResetValues(extraTimeOnRevival);
                 break;
-            case AdType.Coins when Player.Instance == null:
-                PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey,
-                    PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) + CoinIncreaseOnWatch);
-                break;
             case AdType.Coins:
-                Player.Instance.Coins += CoinIncreaseOnWatch;
+                rotator.RotateCoin();
+                if (Player.Instance == null)
+                {
+                    PlayerPrefs.SetInt(PlayerPrefsKeys.CoinsKey,
+                        PlayerPrefs.GetInt(PlayerPrefsKeys.CoinsKey, 0) + CoinIncreaseOnWatch);
+                }
+                else Player.Instance.Coins += CoinIncreaseOnWatch;
                 break;
             default:
                 return;
@@ -211,7 +214,7 @@ public class AdManager : Singleton<AdManager>
         TryReloadRewardedAd();
         StartCoroutine(TryShowRewardedAd(AdType.Coins));
     }
-    
+
     public void OnTestRewardedAdWanted()
     {
         print($"{nameof(OnTestRewardedAdWanted)} was called, were ads initialized yet?: {adsInitialized}");
