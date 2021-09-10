@@ -91,8 +91,7 @@ public class Player : Singleton<Player>
         Coins += coinIncreasePerPuzzleSolved;
         rotator.RotateCoin();
         PuzzleRunning = false;
-        print($"Current Level Timer: {CurrentLevelTimer}");
-        FirebaseManager.Instance.OnPuzzleSolved(PuzzleCycler.Instance.SelectedPack, CurrentLevelTimer);
+        if (PuzzleCycler.Instance.EndlessMode == false) FirebaseManager.Instance.OnPuzzleSolved(PuzzleCycler.Instance.SelectedPack, CurrentLevelTimer);
     }
 
     private void OnLevelReload()
@@ -104,7 +103,11 @@ public class Player : Singleton<Player>
     private void ReEvaluateTimer()
     {
         if (TutorialManager.TutorialFinished == false) CurrentLevelTimer = Mathf.Infinity;
-        else if (PuzzleCycler.Instance.EndlessMode) CurrentLevelTimer += endlessTimeIncreasePerLevel;
+        else if (PuzzleCycler.Instance.EndlessMode)
+        {
+            CurrentLevelTimer += endlessTimeIncreasePerLevel;
+            CurrentLevelTimer = Mathf.Clamp(CurrentLevelTimer, 0, EndlessStartTimer);
+        }
         else CurrentLevelTimer = LevelTimerMax;
     }
 

@@ -22,8 +22,12 @@ public class TutorialManager : MonoBehaviour
         if (firstTutorialText.gameObject.activeSelf)
         {
             firstTutorialText.Disable();
-            TutorialFinished = true;
-            PlayerPrefs.SetInt(PlayerPrefsKeys.TutorialCompleted, 1);
+            if (TutorialFinished == false)
+            {
+                FirebaseManager.Instance.OnTutorialComplete();
+                TutorialFinished = true;
+                PlayerPrefs.SetInt(PlayerPrefsKeys.TutorialCompleted, 1);
+            }
         }
     }
 }
