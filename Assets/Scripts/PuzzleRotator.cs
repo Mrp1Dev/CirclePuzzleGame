@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using MUtility;
 using UnityEngine;
-
+using System.Linq;
 public class PuzzleRotator : MonoBehaviour
 {
     [SerializeField] private LayerMask puzzleLayer;
@@ -36,7 +36,7 @@ public class PuzzleRotator : MonoBehaviour
                 var smallestSize = float.MaxValue;
                 foreach (var hit in hits)
                 {
-                    if (!(hit.transform.localScale.sqrMagnitude < smallestSize)) continue;
+                    if (hit.transform.localScale.sqrMagnitude >= smallestSize) continue;
                     smallestSize = hit.transform.localScale.sqrMagnitude;
                     currentlyHeldPiece = hit.transform.GetComponent<PuzzlePiece>();
                 }

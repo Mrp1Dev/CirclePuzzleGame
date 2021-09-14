@@ -11,12 +11,12 @@ public class Player : Singleton<Player>
 
     [Header("Coins")]
     [SerializeField] private int coinIncreasePerPuzzleSolved;
+    private int coins;
 
     [Header("Timer")]
     [SerializeField] private float baseTimePerLevel;
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField] private AnimationCurve timeMultiplierOverCompletion;
-
 
     [Header("Coin Anim")]
     [SerializeField] private CoinRotator rotator;
@@ -24,8 +24,7 @@ public class Player : Singleton<Player>
     [Header("Audio")]
     [SerializeField] private AudioSource clockTick;
     [SerializeField] private AnimationCurve tickVolumeOverTimeLeft;
-
-    private int coins;
+    [SerializeField] private AudioSource winSound;
 
     [field: Header("Endless Timer")]
     [field: SerializeField] public float EndlessStartTimer { get; private set; }
@@ -92,6 +91,7 @@ public class Player : Singleton<Player>
         rotator.RotateCoin();
         PuzzleRunning = false;
         if (PuzzleCycler.Instance.EndlessMode == false) FirebaseManager.Instance.OnPuzzleSolved(PuzzleCycler.Instance.SelectedPack, CurrentLevelTimer);
+        winSound.Play();
     }
 
     private void OnLevelReload()

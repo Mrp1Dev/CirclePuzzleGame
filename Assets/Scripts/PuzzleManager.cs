@@ -43,7 +43,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
         var mask = PoolingManager.Instance.GetFromPool(settings.maskPrefab, settings.maskHolderParent)
             .GetComponent<SpriteMask>();
         mask.frontSortingOrder = i;
-        var scale = settings.diameter - sizeDelta * i - settings.sliceGap;
+        var scale = settings.diameter - sizeDelta * i;
         mask.transform.localScale = new Vector2(scale, scale);
         mask.GetComponent<PuzzlePiece>().Image = correspondingImage;
         CurrentlyActivePieces.Add(mask.GetComponent<PuzzlePiece>());
@@ -57,11 +57,18 @@ public class PuzzleManager : Singleton<PuzzleManager>
         instantiated.sprite = settings.image;
         instantiated.sortingOrder = i;
         instantiated.transform.localScale = new Vector2(settings.diameter, settings.diameter);
-        do
+        if (i == settings.sliceCount - 1)
         {
-            instantiated.transform.rotation =
-                Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f));
-        } while (Vector3.Dot(instantiated.transform.up, lastUp) > 0.85f);
+            instantiated.transform.up = Vector3.up;
+        }
+        else
+        {
+            do
+            {
+                instantiated.transform.rotation =
+                    Quaternion.Euler(Vector3.forward * Random.Range(0f, 360f));
+            } while (Vector3.Dot(instantiated.transform.up, lastUp) > 0.85f);
+        }
 
         lastUp = instantiated.transform.up;
         return instantiated.transform;
@@ -72,7 +79,6 @@ public class PuzzleManager : Singleton<PuzzleManager>
     {
         public int sliceCount;
         public float diameter;
-        public float sliceGap;
         public GameObject maskPrefab;
         public GameObject imagePrefab;
         public Transform maskHolderParent;

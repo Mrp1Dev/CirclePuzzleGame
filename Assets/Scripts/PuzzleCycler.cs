@@ -4,6 +4,7 @@ using DG.Tweening;
 using MUtility;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PuzzleCycler : Singleton<PuzzleCycler>
 {
@@ -14,6 +15,7 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     [SerializeField] private GameObject tutorialText;
     [Header("Puzzle Anim")]
     [SerializeField] private float puzzleDefaultHeight;
+    [SerializeField] private float puzzleFinalHeight;
     [SerializeField] private float tweenTime;
     [SerializeField] private Ease ease;
     [SerializeField] private GameObject puzzle;
@@ -22,6 +24,10 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     //ENDLESS MODE
     private List<PuzzlePack> availablePacks;
     public bool EndlessMode { get; private set; }
+    private HashSet<Sprite> alreadyShownPuzzles = new HashSet<Sprite>();
+    [Header("Puzzle Choosing")]
+    [SerializeField] private int iterationsToGetBestPuzzle = 5;
+    [SerializeField, Range(0, 100)] private int resetHashSetThreshold;
 
     public PuzzlePack SelectedPack { get; private set; }
 
@@ -63,7 +69,7 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
 
         LevelReload?.Invoke();
         puzzle.transform.localPosition = Vector3.up * puzzleDefaultHeight;
-        puzzle.transform.DOLocalMoveY(0f, tweenTime).SetEase(ease);
+        puzzle.transform.DOLocalMoveY(puzzleFinalHeight, tweenTime).SetEase(ease);
         var settings = PuzzleManager.Instance.DefaultSettings;
         settings.image = EndlessMode ? GetRandomPuzzle(availablePacks) : SelectedPack.Images[CurrentlySolvedPuzzles];
         PuzzleManager.Instance.GeneratePuzzle(settings);
@@ -86,5 +92,18 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
             OnNextPuzzleClick();
     }
 
-    private Sprite GetRandomPuzzle(List<PuzzlePack> packs) => packs.RandomElement().Images.RandomElement();
+    private Sprite GetRandomPuzzle(List<PuzzlePack> packs)
+    {
+        if ((float) alreadyShownPuzzles.Count / packs.Sum(p => p.Images.Count) > resetHashSetThreshold / 100f)
+            alreadyShownPuzzles.Clear();
+        Sprite res;
+        var i = 0;
+        do
+        {
+            res = packs.RandomElement().Images.RandomElement();
+            i++;
+        } while (alreadyShownPuzzles.Contains(res) && i < iterationsToGetBestPuzzle);
+        alreadyShownPuzzles.Add(res);
+        return res;
+    }
 }
