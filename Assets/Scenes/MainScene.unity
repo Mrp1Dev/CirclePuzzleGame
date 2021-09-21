@@ -750,7 +750,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 51833786}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -758,10 +758,10 @@ RectTransform:
   m_Father: {fileID: 1629324003}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.82}
-  m_AnchorMax: {x: 0.5, y: 0.82}
-  m_AnchoredPosition: {x: -3.1062, y: -55.95}
-  m_SizeDelta: {x: 477.1203, y: 111.900024}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -181.2}
+  m_SizeDelta: {x: 519.46, y: 137.9199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &51833788
 MonoBehaviour:
@@ -1983,7 +1983,7 @@ MonoBehaviour:
   winPanelDelay: 2.5
   tutorialText: {fileID: 1978872975}
   puzzleDefaultHeight: 10
-  puzzleFinalHeight: -0.4
+  puzzleFinalHeight: -0.05
   tweenTime: 1
   ease: 30
   puzzle: {fileID: 907748546}
@@ -2922,7 +2922,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 314860378}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1227581829}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &314860378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7123,7 +7135,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -121.6, y: -42.438}
+  m_AnchoredPosition: {x: -121.6, y: -48.338}
   m_SizeDelta: {x: 235.88837, y: 77.27515}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &956964320
@@ -9765,7 +9777,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 41
+  m_fontSize: 47.3
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -11531,8 +11543,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1531106906}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.55, z: 0}
-  m_LocalScale: {x: 0.65, y: 1.2, z: 0.1}
+  m_LocalPosition: {x: 0.0488, y: -0.25, z: 0}
+  m_LocalScale: {x: 0.6604884, y: 1.2, z: 0.1}
   m_Children: []
   m_Father: {fileID: 1085828604}
   m_RootOrder: 7
@@ -13176,7 +13188,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1754374867
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14362,7 +14374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.0000094338, y: -212}
+  m_AnchoredPosition: {x: 0, y: -181.2}
   m_SizeDelta: {x: 519.46, y: 137.9199}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1978872977
@@ -16249,7 +16261,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000011444, y: -61.670677}
+  m_AnchoredPosition: {x: 0.000003814789, y: 0.0000038146973}
   m_SizeDelta: {x: 419.0447, y: 277.1281}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2130990955
@@ -16972,11 +16984,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7547145925913869789, guid: 6785ebf589dffa64ab68ca4ceaa3e9c2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 192.2
+      value: 192.6
       objectReference: {fileID: 0}
     - target: {fileID: 7547145925913869789, guid: 6785ebf589dffa64ab68ca4ceaa3e9c2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -40.7
+      value: -48.264
       objectReference: {fileID: 0}
     - target: {fileID: 7547145925913869789, guid: 6785ebf589dffa64ab68ca4ceaa3e9c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
