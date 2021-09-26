@@ -5,17 +5,14 @@ using Random = UnityEngine.Random;
 
 public class PuzzleManager : Singleton<PuzzleManager>
 {
-    [SerializeField] private bool generateOnStart = true;
     private Vector3 lastUp = Vector3.up;
 
-    [field: SerializeField] public PuzzleGenerationSettings DefaultSettings { get; private set; }
+    [field: SerializeField] public PuzzleGenerationSettings DefaultSettings { get; set; }
 
     public List<PuzzlePiece> CurrentlyActivePieces { get; } = new List<PuzzlePiece>();
 
     private void Start()
     {
-        if (generateOnStart)
-            GeneratePuzzle(DefaultSettings);
     }
 
     public void GeneratePuzzle(PuzzleGenerationSettings settings, bool clearCurrent = true)

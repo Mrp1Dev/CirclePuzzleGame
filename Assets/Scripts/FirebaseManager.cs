@@ -9,8 +9,8 @@ public class FirebaseManager : Singleton<FirebaseManager>
 
     private const string EndlessModeClicked = "endless_mode_clicked";
     private const string NormalModeClicked = "normal_mode_clicked";
-
-    private const string GlobalParamPackID = "pack_id";
+    private const string HardDifficultyChosen = "hard_difficulty_chosen";
+    private const string EasyDifficultyChosen = "easy_difficulty_chosen";
 
     private const string PackOpened = "pack_opened";
 
@@ -60,6 +60,18 @@ public class FirebaseManager : Singleton<FirebaseManager>
     {
         if (app == null) Debug.LogWarning($"{nameof(OnNormalModeClicked)} was called but app wasn't loaded.");
         else FirebaseAnalytics.LogEvent(NormalModeClicked);
+    }
+
+    public void OnHardDifficultyChosen()
+    {
+        if(app == null) Debug.LogWarning($"{nameof(OnHardDifficultyChosen)} was called but app wasn't loaded.");
+        else FirebaseAnalytics.LogEvent(HardDifficultyChosen);
+    }
+
+    public void OnEasyDifficultyChosen()
+    {
+        if (app == null) Debug.LogWarning($"{nameof(OnEasyDifficultyChosen)} was called but app wasn't loaded.");
+        else FirebaseAnalytics.LogEvent(EasyDifficultyChosen);
     }
 
     public void OnPackOpened(PuzzlePack pack)

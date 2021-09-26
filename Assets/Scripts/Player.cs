@@ -1,20 +1,27 @@
 using System;
-using DG.Tweening;
 using UnityEngine;
-
+using MUtility;
+using System.Linq;
 public class Player : Singleton<Player>
 {
+
+    public event Action GameLost;
+
     [Header("Score")]
     [SerializeField] private float startScore;
     [SerializeField] private float scoreReductionPerSecond;
     [SerializeField] private float scoreIncreasePerPuzzle;
 
-    [Header("Coins")]
-    [SerializeField] private int coinIncreasePerPuzzleSolved;
+    [field: Header("Coins")]
+    [field: SerializeField] public int CoinIncreasePerPuzzleSolved { get; set; }
     private int coins;
 
     [Header("Timer")]
     [SerializeField] private float baseTimePerLevel;
+    [SerializeField] private float lowScoreTime;
+    [SerializeField] private float highScoreTime;
+    [SerializeField] private float lowScoreCriteria;
+    [SerializeField] private float highScoreCriteria;
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField] private AnimationCurve timeMultiplierOverCompletion;
 
@@ -77,17 +84,17 @@ public class Player : Singleton<Player>
             PuzzleRunning = false;
         }
 
-        Score -= Mathf.Max(scoreReductionPerSecond * Time.deltaTime, 0);
+        Score -= scoreReductionPerSecond * Time.deltaTime;
+        Score = Mathf.Max(Score, 0);
         clockTick.volume = tickVolumeOverTimeLeft.Evaluate(1 - CurrentLevelTimer / LevelTimerMax);
     }
 
     private void OnDisable() => PuzzleRunning = false;
-    public event Action GameLost;
 
     private void OnWin()
     {
         Score += scoreIncreasePerPuzzle;
-        Coins += coinIncreasePerPuzzleSolved;
+        Coins += CoinIncreasePerPuzzleSolved;
         rotator.RotateCoin();
         PuzzleRunning = false;
         if (PuzzleCycler.Instance.EndlessMode == false) FirebaseManager.Instance.OnPuzzleSolved(PuzzleCycler.Instance.SelectedPack, CurrentLevelTimer);
@@ -97,6 +104,7 @@ public class Player : Singleton<Player>
     private void OnLevelReload()
     {
         PuzzleRunning = true;
+        RecalculateBaseTimer();
         ReEvaluateTimer();
     }
 
@@ -117,6 +125,17 @@ public class Player : Singleton<Player>
         PuzzleRunning = true;
         ReEvaluateTimer();
         CurrentLevelTimer += extraTime;
+    }
+
+    private void RecalculateBaseTimer()
+    {
+        var packsTried = PackSupplier.Instance.Packs.Where(p => p.CurrentHighScore > 0);
+        var averageHighScore = 0f;
+        if (packsTried != null && packsTried.Any())
+            averageHighScore = (float) packsTried.Average(p => p.CurrentHighScore);
+
+        baseTimePerLevel = averageHighScore.ReMap(lowScoreCriteria, highScoreCriteria, lowScoreTime, highScoreTime);
+        print($"Current calculated base time per level: {baseTimePerLevel}");
     }
 
     public void StartEndlessTimer() => CurrentLevelTimer = EndlessStartTimer;

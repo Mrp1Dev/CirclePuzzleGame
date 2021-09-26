@@ -15,7 +15,7 @@ public class WinConditionChecker : Singleton<WinConditionChecker>
             if (gameLostPanel.activeSelf || confirmationPopup.activeSelf) return;
             foreach (var piece in PuzzleManager.Instance.CurrentlyActivePieces)
                 piece.Image.up = Vector3.RotateTowards(piece.Image.up,
-                    PuzzleManager.Instance.CurrentlyActivePieces.Last().Image.up,
+                    PuzzleManager.Instance.CurrentlyActivePieces[0].Image.up,
                     Mathf.Deg2Rad * adjustmentSpeed * Time.deltaTime, 0.0f);
             return;
         }
