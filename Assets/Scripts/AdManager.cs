@@ -10,16 +10,21 @@ public class AdManager : Singleton<AdManager>
     private const string testAdUnitID = "ca-app-pub-3940256099942544/5224354917";
     private const string rewardedAdUnitID = "ca-app-pub-3940256099942544/5224354917";
     private const string interstitialAdUnitID = "ca-app-pub-3940256099942544/1033173712";
-    [SerializeField] private GameObject adFailedToLoadPopup;
+    [SerializeField] private GameObject adLoadingPanel;
     [SerializeField] private GameObject puzzleLostPanel;
     [SerializeField] private GameObject endlessPuzzleLostPanel;
     [SerializeField] private float extraTimeOnRevival;
     [SerializeField] private CoinRotator rotator;
+    [SerializeField] private GameObject adFailedToLoadPanel;
+    [SerializeField] private float maxLoadTime = 6f;
+    [SerializeField] private float maxInterstitialLoadTime = 1f;
+    private bool adFailedToLoad;
     private AdType currentRunningAd;
     private InterstitialAd interstitial;
     private bool puzzleRunningAfterInterstitial;
 
     private RewardedAd rewardedAd;
+    private bool rewardedAdFailedToLoad;
 
     private bool adsInitialized = false;
     [field: SerializeField] public int CoinIncreaseOnWatch { get; private set; }
@@ -85,22 +90,40 @@ public class AdManager : Singleton<AdManager>
     private void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs e)
     {
         print("interstitial ad failed to load! " + e.LoadAdError);
+        adFailedToLoad = true;
     }
 
-    private void TryShowRewardedAd(AdType adType)
+    private IEnumerator TryShowRewardedAd(AdType adType)
     {
-        if(rewardedAd.IsLoaded() == false)
+        var timer = 0f;
+        adLoadingPanel.SetActive(true);
+        while (!rewardedAd.IsLoaded())
         {
-            adFailedToLoadPopup.SetActive(true);
-            return;
+            if (rewardedAdFailedToLoad || timer >= maxLoadTime)
+            {
+                adLoadingPanel.SetActive(false);
+                adFailedToLoadPanel.SetActive(true);
+                yield break;
+            }
+            timer += 0.1f;
+            yield return new WaitForSecondsRealtime(0.1f);
         }
+
         rewardedAd.Show();
+        adLoadingPanel.SetActive(false);
         currentRunningAd = adType;
     }
 
-    private void TryShowInterstitialAd()
+    private IEnumerator TryShowInterstitialAd()
     {
-        if (interstitial.IsLoaded() == false) return;
+        var timer = 0f;
+        while (!interstitial.IsLoaded())
+        {
+            if (adFailedToLoad || timer >= maxInterstitialLoadTime) yield break;
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
         interstitial.Show();
     }
 
@@ -112,6 +135,7 @@ public class AdManager : Singleton<AdManager>
     private void HandleRewardedAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
         print("HandleRewardedAdFailedToLoad event received with message: " + args.LoadAdError);
+        rewardedAdFailedToLoad = true;
     }
 
     private void HandleRewardedAdOpening(object sender, EventArgs args)
@@ -125,11 +149,13 @@ public class AdManager : Singleton<AdManager>
             "HandleRewardedAdFailedToShow event received with message: "
             + args.AdError);
         currentRunningAd = AdType.None;
+        adLoadingPanel.SetActive(false);
     }
 
     private void HandleRewardedAdClosed(object sender, EventArgs args)
     {
         print("HandleRewardedAdClosed event received");
+        adLoadingPanel.SetActive(false);
         RequestRewardedAd();
     }
 
@@ -168,29 +194,48 @@ public class AdManager : Singleton<AdManager>
                 return;
         }
     }
+    private void TryReloadRewardedAd()
+    {
+        if (!rewardedAdFailedToLoad) return;
+        rewardedAdFailedToLoad = false;
+        RequestRewardedAd();
+    }
+
+    private void TryReloadAd()
+    {
+        if (!adFailedToLoad) return;
+        adFailedToLoad = false;
+        RequestAd();
+    }
+
     public void OnReviveWanted()
     {
         print($"{nameof(OnReviveWanted)} was called, were ads initialized yet?: {adsInitialized}");
-        TryShowRewardedAd(AdType.Revival);
+        TryReloadRewardedAd();
+        StartCoroutine(TryShowRewardedAd(AdType.Revival));
     }
 
     public void OnCoinsWanted()
     {
         print($"{nameof(OnCoinsWanted)} was called, were ads initialized yet?: {adsInitialized}");
-        TryShowRewardedAd(AdType.Coins);
+        TryReloadRewardedAd();
+        StartCoroutine(TryShowRewardedAd(AdType.Coins));
     }
 
     public void OnTestRewardedAdWanted()
     {
         print($"{nameof(OnTestRewardedAdWanted)} was called, were ads initialized yet?: {adsInitialized}");
-        TryShowRewardedAd(AdType.None);
+        TryReloadRewardedAd();
+        StartCoroutine(TryShowRewardedAd(AdType.None));
+
     }
 
     public void OnInterstitialWanted(bool puzzleRunningAfterAd = false)
     {
         print($"{nameof(OnInterstitialWanted)} was called, were ads initialized yet?: {adsInitialized}");
         puzzleRunningAfterInterstitial = puzzleRunningAfterAd;
-        TryShowInterstitialAd();
+        TryReloadAd();
+        StartCoroutine(TryShowInterstitialAd());
     }
 
     private enum AdType
