@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class PuzzleManager : Singleton<PuzzleManager>
@@ -26,7 +27,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
                 CurrentlyActivePieces.RemoveAt(i);
             }
         }
-
+        
         for (var i = settings.sortingOrderOffset; i < settings.sliceCount + settings.sortingOrderOffset; i++)
         {
             var sprite = SpawnSprite(i, settings);

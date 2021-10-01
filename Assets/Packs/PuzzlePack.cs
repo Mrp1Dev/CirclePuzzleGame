@@ -6,6 +6,7 @@ using UnityEngine;
 public class PuzzlePack : ScriptableObject
 {
     private int currentHighScore;
+    private int clueCount;
     [field: SerializeField] public List<Sprite> Images { get; private set; }
     [field: SerializeField] public bool FreePack { get; private set; }
     [field: SerializeField] public int ID { get; private set; }
@@ -16,6 +17,16 @@ public class PuzzlePack : ScriptableObject
         {
             PlayerPrefs.SetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), value);
             currentHighScore = value;
+        }
+    }
+
+    public int ClueCount
+    {
+        get => clueCount;
+        set
+        {
+            PlayerPrefs.SetInt(PlayerPrefsKeys.GetPackClueCountKey(this), value);
+            clueCount = value;
         }
     }
 
