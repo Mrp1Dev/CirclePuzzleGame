@@ -135,7 +135,6 @@ public class Player : Singleton<Player>
             averageHighScore = (float) packsTried.Average(p => p.CurrentHighScore);
 
         baseTimePerLevel = averageHighScore.ReMap(lowScoreCriteria, highScoreCriteria, lowScoreTime, highScoreTime);
-        print($"Current calculated base time per level: {baseTimePerLevel}");
     }
 
     public void StartEndlessTimer() => CurrentLevelTimer = EndlessStartTimer;

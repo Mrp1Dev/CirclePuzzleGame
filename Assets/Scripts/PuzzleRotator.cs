@@ -9,6 +9,8 @@ public class PuzzleRotator : MonoBehaviour
     [SerializeField] private AudioSource clickSoundEffect;
     [SerializeField] private List<AudioClip> clickAudioClips;
     [SerializeField] private DisableWithEase finger;
+    [SerializeField] private float angleDifferencePerSecondForSound = 5f;
+    [SerializeField] private float maxVolume = 0.02f;
     private PuzzlePiece currentlyHeldPiece;
     private Vector2 previousMouseDir = Vector2.zero;
 
@@ -49,11 +51,13 @@ public class PuzzleRotator : MonoBehaviour
 
         if (Input.GetMouseButton(0) && currentlyHeldPiece != null)
         {
+            float angle = Vector2.SignedAngle(previousMouseDir, DirToMouse());
             currentlyHeldPiece.Image.localRotation =
                 Quaternion.Euler(
-                    Vector3.forward * Vector2.SignedAngle(previousMouseDir, DirToMouse())) *
+                    Vector3.forward * angle) *
                 currentlyHeldPiece.Image.localRotation;
             previousMouseDir = DirToMouse();
+            clickSoundEffect.volume = Mathf.InverseLerp(0.0f, angleDifferencePerSecondForSound * Time.deltaTime, angle) * maxVolume;
             if (clickSoundEffect.isPlaying) return;
             clickSoundEffect.clip = clickAudioClips.RandomElement();
             clickSoundEffect.Play();

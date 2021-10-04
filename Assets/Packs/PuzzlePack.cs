@@ -10,6 +10,7 @@ public class PuzzlePack : ScriptableObject
     [field: SerializeField] public List<Sprite> Images { get; private set; }
     [field: SerializeField] public bool FreePack { get; private set; }
     [field: SerializeField] public int ID { get; private set; }
+    [SerializeField] private int defaultClues = 5;
     public int CurrentHighScore
     {
         get => currentHighScore;
@@ -34,5 +35,7 @@ public class PuzzlePack : ScriptableObject
     private void Awake()
     {
         currentHighScore = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackHighScoreKey(this), 0);
+        clueCount = PlayerPrefs.GetInt(PlayerPrefsKeys.GetPackClueCountKey(this), defaultClues);
+        Debug.Log($"{name} cluecount set to: {clueCount}");
     }
 }

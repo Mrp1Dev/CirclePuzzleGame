@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PauseOnConfirmationPopup : MonoBehaviour
+public class PauseOnPopup : MonoBehaviour
 {
     bool wasGameRunningOnEnable;
     private void OnEnable()

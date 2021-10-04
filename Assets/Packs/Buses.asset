@@ -30,3 +30,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 270d1e9ee2da73f4f9ae47c5c6df4f33, type: 3}
   <FreePack>k__BackingField: 0
   <ID>k__BackingField: 2
+  defaultClues: 5

@@ -33,6 +33,8 @@ public class PuzzleManager : Singleton<PuzzleManager>
             var sprite = SpawnSprite(i, settings);
             SpawnMask(i, sprite, settings);
         }
+
+        settings.solutionImage.sprite = settings.image;
     }
 
     private void SpawnMask(int i, Transform correspondingImage, PuzzleGenerationSettings settings)
@@ -79,6 +81,7 @@ public class PuzzleManager : Singleton<PuzzleManager>
         public float diameter;
         public GameObject maskPrefab;
         public GameObject imagePrefab;
+        public Image solutionImage;
         public Transform maskHolderParent;
         public Transform imageHolderParent;
         public Sprite image;

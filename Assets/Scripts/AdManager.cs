@@ -18,6 +18,7 @@ public class AdManager : Singleton<AdManager>
     [SerializeField] private GameObject adFailedToLoadPanel;
     [SerializeField] private float maxLoadTime = 6f;
     [SerializeField] private float maxInterstitialLoadTime = 1f;
+    [SerializeField] private int hintIncreaseOnWatch = 10;
     private bool adFailedToLoad;
     private AdType currentRunningAd;
     private InterstitialAd interstitial;
@@ -190,6 +191,9 @@ public class AdManager : Singleton<AdManager>
                 }
                 else Player.Instance.Coins += CoinIncreaseOnWatch;
                 break;
+            case AdType.Hints:
+                PuzzleCycler.Instance.SelectedPack.ClueCount += hintIncreaseOnWatch;
+                    break;
             default:
                 return;
         }
@@ -222,6 +226,13 @@ public class AdManager : Singleton<AdManager>
         StartCoroutine(TryShowRewardedAd(AdType.Coins));
     }
 
+    public void OnHintsWanted()
+    {
+        print($"{nameof(OnCoinsWanted)} was called, were ads initialized yet?: {adsInitialized}");
+        TryReloadRewardedAd();
+        StartCoroutine(TryShowRewardedAd(AdType.Hints));
+    }
+
     public void OnTestRewardedAdWanted()
     {
         print($"{nameof(OnTestRewardedAdWanted)} was called, were ads initialized yet?: {adsInitialized}");
@@ -242,6 +253,7 @@ public class AdManager : Singleton<AdManager>
     {
         None,
         Revival,
-        Coins
+        Coins,
+        Hints
     }
 }
