@@ -22,6 +22,7 @@ public class Player : Singleton<Player>
     [SerializeField] private float highScoreTime;
     [SerializeField] private float lowScoreCriteria;
     [SerializeField] private float highScoreCriteria;
+    [SerializeField, Range(0f, 1f)] private float lossSignificance;
     [Tooltip("Recommended to have a 0-1 value in both x and y axis. It is multiplied by baseTimePerLevel.")]
     [SerializeField] private AnimationCurve timeMultiplierOverCompletion;
 
@@ -131,10 +132,15 @@ public class Player : Singleton<Player>
     {
         var packsTried = PackSupplier.Instance.Packs.Where(p => p.CurrentHighScore > 0);
         var averageHighScore = 0f;
+        var averageLossCount = 0f;
         if (packsTried != null && packsTried.Any())
+        {
             averageHighScore = (float) packsTried.Average(p => p.CurrentHighScore);
+            averageLossCount = (float) packsTried.Average(p => p.LossCount);
+        }
+        var t = Mathf.Clamp(Mathf.InverseLerp(lowScoreCriteria, highScoreCriteria, averageHighScore), 0f, 1 - lossSignificance * averageLossCount);
 
-        baseTimePerLevel = averageHighScore.ReMap(lowScoreCriteria, highScoreCriteria, lowScoreTime, highScoreTime);
+        baseTimePerLevel = Mathf.Lerp(lowScoreTime, highScoreTime, t);
     }
 
     public void StartEndlessTimer() => CurrentLevelTimer = EndlessStartTimer;

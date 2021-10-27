@@ -38,17 +38,26 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
     {
         nextPuzzleButton.onClick.AddListener(OnNextPuzzleClick);
         WinConditionChecker.GameWon += OnWin;
+        Player.Instance.GameLost += OnGameLost;
+    }
+
+    private void OnGameLost()
+    {
+        if (EndlessMode) return;
+        SelectedPack.LossCount++;
     }
 
     private void OnDestroy()
     {
         WinConditionChecker.GameWon -= OnWin;
+        Player.Instance.GameLost -= OnGameLost;
     }
 
     public static event Action LevelReload;
 
     public void Init(PuzzlePack puzzleImages)
     {
+        puzzleImages.ShuffleImages();
         SelectedPack = puzzleImages;
         availablePacks = null;
         EndlessMode = false;
@@ -81,6 +90,7 @@ public class PuzzleCycler : Singleton<PuzzleCycler>
         if (Instance.PuzzleCount - Instance.CurrentlySolvedPuzzles > 0) return;
         if (Player.Instance.Score > SelectedPack.CurrentHighScore)
             SelectedPack.CurrentHighScore = Mathf.RoundToInt(Player.Instance.Score);
+        SelectedPack.LossCount--;
         this.DelayUnscaled(() => packWinPanel.SetActive(true), winPanelDelay);
     }
 
